@@ -11,16 +11,14 @@ import reactor.core.publisher.Mono;
 @RestController
 public class SimulatorRestController {
 
-    private WebClient client = WebClient.create("http://localhost:8081");
-
     private Mono<Void> simulator;
 
     private Disposable task;
 
-    public SimulatorRestController(MeasurementGenerator generator) {
+    public SimulatorRestController(MeasurementGenerator generator, WebClient webClient) {
         Flux<Measurement> measurements = generator.generate();
 
-        simulator = client.post()
+        simulator = webClient.post()
                 .uri("/measurements")
                 .contentType(MediaType.APPLICATION_STREAM_JSON)
                 .body(measurements, Measurement.class)

@@ -4,3 +4,15 @@ server:
 spring:
   application:
     name: temperature-service
+
+  security:
+    user:
+      password: password
+
+# by default only /actuator, /actuator/info and /actuator/health is enabled
+management:
+  endpoints:
+    web.exposure.include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
