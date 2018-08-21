@@ -8,8 +8,7 @@
 
 ```bash
 http post :8082/start
-```
-
+``` 
 Inspect the streaming:
 
 httpie sends it with `Accept` header `*/*`

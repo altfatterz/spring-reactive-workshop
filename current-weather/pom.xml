@@ -15,6 +15,7 @@
 	<modules>
         <module>temperature-service</module>
         <module>iot-cloud-simulator</module>
+        <module>temperature-dashboard</module>
     </modules>
 
 </project>
