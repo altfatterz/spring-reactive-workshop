@@ -16,15 +16,14 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Foo Stream</th>
+            <th>UUIDs</th>
         </tr>
         </thead>
-        <tr th:each="foo: ${fooStream}">
-            <td th:text="${foo}"></td>
+        <tr th:each="uuid : ${uuids}">
+            <td th:text="${uuid}">...</td>
         </tr>
     </table>
 </div>
-
 
 <script type="text/javascript" src="/webjars/highcharts/6.1.1/highcharts.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>

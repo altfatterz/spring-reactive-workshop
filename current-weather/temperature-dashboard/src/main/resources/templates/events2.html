@@ -16,18 +16,27 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Foo Stream</th>
+            <th>UUIDs</th>
         </tr>
         </thead>
-        <tr th:each="foo: ${fooStream}">
-            <td th:text="${foo}"></td>
-        </tr>
+        <tbody id="dataTable">
+
+        </tbody>
     </table>
 </div>
 
-
 <script type="text/javascript" src="/webjars/highcharts/6.1.1/highcharts.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    var dataTable = document.getElementById("dataTable");
+
+    var source = new EventSource("/events2");
+    source.addEventListener("message", function(event) {
+        dataTable.innerHTML = event.data + dataTable.innerHTML
+    });
+
+</script>
 
 </body>
 </html>
