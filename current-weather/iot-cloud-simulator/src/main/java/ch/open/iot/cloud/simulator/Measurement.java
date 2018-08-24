@@ -1,22 +1,26 @@
 package ch.open.iot.cloud.simulator;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NonNull;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.Instant;
 
 @Data
-@Builder
 public class Measurement {
-
-    private String id;
 
     @NonNull
     private String sensorName;
 
     @NonNull
-    private Integer temperature;
+    private BigDecimal temperature;
 
     @NonNull
-    private LocalDateTime time;
+    private Instant time;
 
+    public Measurement(String sensorName, BigDecimal temperature) {
+        this.sensorName = sensorName;
+        this.temperature = temperature;
+        this.time = Instant.now();
+    }
 }

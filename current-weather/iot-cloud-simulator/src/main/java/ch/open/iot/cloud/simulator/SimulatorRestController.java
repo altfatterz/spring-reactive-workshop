@@ -8,6 +8,8 @@ import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @RestController
 public class SimulatorRestController {
 
@@ -16,7 +18,7 @@ public class SimulatorRestController {
     private Disposable task;
 
     public SimulatorRestController(MeasurementGenerator generator, WebClient webClient) {
-        Flux<Measurement> measurements = generator.generate();
+        Flux<Measurement> measurements = generator.fetchMeasurementStream(Duration.ofSeconds(2));
 
         simulator = webClient.post()
                 .uri("/measurements")

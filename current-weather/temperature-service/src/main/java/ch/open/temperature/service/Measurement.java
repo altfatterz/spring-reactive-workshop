@@ -6,6 +6,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,9 +22,9 @@ public class Measurement {
     private String sensorName;
 
     @NonNull
-    private Integer temperature;
+    private BigDecimal temperature;
 
     @NonNull
-    private LocalDateTime time;
+    private Instant time;
 
 }
