@@ -4,12 +4,13 @@
 
 3. start iot-cloud-simulator
 
-4. trigger the simulator:
+4. trigger the ito-cloud-simulator:
 
 ```bash
 http post :8082/start
 ``` 
-Inspect the streaming:
+
+5. Inspect the streaming (`temperature-service`)
 
 httpie sends it with `Accept` header `*/*`
 ```bash
@@ -25,3 +26,13 @@ Streaming:
 ```bash
 http -S :8081/measurements "Accept: application/stream+json" -a user:password
 ```
+
+6. Endpoints in `temperature-dashboard`
+
+```
+http://localhost:8080/foo
+http://localhost:8080/events
+http://localhost:8080/events2
+```
+
+
