@@ -6,6 +6,7 @@ import reactor.core.publisher.Flux;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -31,7 +32,8 @@ public class MeasurementGenerator {
                     Measurement measurement = measurements.get(random.nextInt(3));
                     BigDecimal measurementChange = measurement.getTemperature().multiply(
                             new BigDecimal(0.05 * this.random.nextDouble()), this.mathContext);
-                    return new Measurement(measurement.getSensorName(), measurement.getTemperature().add(measurementChange));
+                    return new Measurement(measurement.getSensorName(),
+                            measurement.getTemperature().add(measurementChange), LocalDateTime.now());
                 }).log();
 
     }

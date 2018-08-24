@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data
 public class Measurement {
@@ -16,11 +16,15 @@ public class Measurement {
     private BigDecimal temperature;
 
     @NonNull
-    private Instant time;
+    private LocalDateTime time;
 
-    public Measurement(String sensorName, BigDecimal temperature) {
+    public Measurement(String sensorName, BigDecimal temperature, LocalDateTime time) {
         this.sensorName = sensorName;
         this.temperature = temperature;
-        this.time = Instant.now();
+        this.time = time;
+    }
+
+    public Measurement(String sensorName, BigDecimal temperature) {
+        this(sensorName, temperature, LocalDateTime.now());
     }
 }
