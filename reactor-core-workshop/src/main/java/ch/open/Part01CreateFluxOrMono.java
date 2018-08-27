@@ -16,87 +16,87 @@ public class Part01CreateFluxOrMono {
 
     // TODO create a sequence that emits a single value from the provided Optional<String> parameter
     Publisher<String> createFromOptional(Optional<String> foo) {
-        return Mono.justOrEmpty(foo);
+        return Mono.justOrEmpty(foo); // TO BE REMOVED
     }
 
     // TODO create a sequence that emits a single value from the provided potentially null value
     Publisher<String> createFromPotentiallyNull(String foo) {
-        return Mono.justOrEmpty(foo);
+        return Mono.justOrEmpty(foo); // TO BE REMOVED
     }
 
     // TODO create a sequence that emits a single value from the provided lazily captured value
     Publisher<String> createFromSupplier(Supplier<String> foo) {
-        return Mono.fromSupplier(foo);
+        return Mono.fromSupplier(foo); // TO BE REMOVED
     }
 
     // TODO create a sequence that emits "foo" and "bar" strings
     Publisher<String> createFooBar() {
-        return Flux.just("foo", "bar");
+        return Flux.just("foo", "bar"); // TO BE REMOVED
     }
 
     // TODO create a sequence from the provided array
     Publisher<String> createFromArray(String[] array) {
-        return Flux.fromArray(array);
+        return Flux.fromArray(array); // TO BE REMOVED
     }
 
     // TODO create a sequence from the provided list
     Publisher<String> createFromArray(List<String> values) {
-        return Flux.fromIterable(values);
+        return Flux.fromIterable(values); // TO BE REMOVED
     }
 
     // TODO create a sequence that emits the items contained in the provided stream
     Publisher<String> createFromStream(Stream<String> stream) {
-        return Flux.fromStream(stream);
+        return Flux.fromStream(stream); // TO BE REMOVED
     }
 
     // TODO create a sequence that emits the items contained in the provided stream for each subscription
     Publisher<String> createFromStreamForEachSubscriber(Stream<String> stream) {
-        return Flux.fromStream(() -> stream);
+        return Flux.fromStream(() -> stream); // TO BE REMOVED
     }
 
     // TODO create a sequence that completes empty once the provided Runnable completed
     Publisher<String> createFromRunnable(Runnable runnable) {
-        return Mono.fromRunnable(runnable);
+        return Mono.fromRunnable(runnable); // TO BE REMOVED
     }
 
     // TODO create a sequence producing its value using the provided Callable
     Publisher<String> createFromCallable(Callable<String> callable) {
-        return Mono.fromCallable(callable);
+        return Mono.fromCallable(callable); // TO BE REMOVED
     }
 
     // TODO create a sequence producing its value using the provided Supplier
     Publisher<String> createFromCallable(Supplier<String> supplier) {
-        return Mono.fromSupplier(supplier);
+        return Mono.fromSupplier(supplier); // TO BE REMOVED
     }
 
     // TODO create a sequence producing its value using the provided CompletableFuture
     Publisher<String> createFromFuture(CompletableFuture<String> future) {
-        return Mono.fromFuture(future);
+        return Mono.fromFuture(future); // TO BE REMOVED
     }
 
     // TODO create a sequence that completes without emitting any item.
     Publisher<Void> createEmpty() {
-        return Mono.empty(); // or Flux.empty()
+        return Mono.empty(); // or Flux.empty() // TO BE REMOVED
     }
 
     // TODO create a sequence that terminates with IllegalStateException error immediately after being subscribed to.
     Publisher<Void> createError() {
-        return Mono.error(new IllegalStateException()); // or Flux.error(new IllegalStateException())
+        return Mono.error(new IllegalStateException()); // or Flux.error(new IllegalStateException()) // TO BE REMOVED
     }
 
     // TODO create a sequence that will never signal any data, error or completion signal
     Publisher<Void> neverEmit() {
-        return Mono.never(); // or Flux.never();
+        return Mono.never(); // or Flux.never(); // TO BE REMOVED
     }
 
     // TODO lazily supply the provided publisher every time a subscription is made on the resulting Flux
     Flux<String> deferFlux(Publisher<String> publisher) {
-        return Flux.defer(() -> publisher);
+        return Flux.defer(() -> publisher); // TO BE REMOVED
     }
 
     // TODO create a sequence that emits increasing values from 0 to 5 each 100ms
     Flux<Long> counter() {
-        return Flux.interval(Duration.ofMillis(100)).take(5);
+        return Flux.interval(Duration.ofMillis(100)).take(5); // TO BE REMOVED
     }
 
     // TODO create a Flux generating the sequence 0, 2, 4, 6, 8, 10, 12, 14 ... completing by reaching the provided nr of elements.
@@ -113,7 +113,7 @@ public class Part01CreateFluxOrMono {
                     }
                     sink.next(2 * state);
                     return state + 1;
-                });
+                });  // TO BE REMOVED
     }
 
     // TODO create a flux emitting 1 and 2 and then complete. Use the Flux#create method
@@ -125,7 +125,7 @@ public class Part01CreateFluxOrMono {
             subscriber.next(1);
             subscriber.next(2);
             subscriber.complete();
-        });
+        }); // TO BE REMOVED
     }
 
 
