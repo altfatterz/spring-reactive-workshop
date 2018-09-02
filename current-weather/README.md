@@ -35,4 +35,8 @@ http://localhost:8080/events
 http://localhost:8080/events2
 ```
 
+Dashboard consuming it from:
 
+```bash
+http -S :8080/measurements/feed "Accept: text/event-stream"
+```

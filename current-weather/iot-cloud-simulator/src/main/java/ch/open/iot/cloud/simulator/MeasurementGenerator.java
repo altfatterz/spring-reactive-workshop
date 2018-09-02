@@ -34,7 +34,7 @@ public class MeasurementGenerator {
                             new BigDecimal(0.05 * this.random.nextDouble()), this.mathContext);
                     return new Measurement(measurement.getSensorName(),
                             measurement.getTemperature().add(measurementChange), LocalDateTime.now());
-                }).log();
+                }).log("generator");
 
     }
 

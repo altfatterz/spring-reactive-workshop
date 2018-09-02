@@ -17,7 +17,7 @@ public class MeasurementRestController {
     @PostMapping(path = "/measurements", consumes = "application/stream+json")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Void> loadMeasurements(@RequestBody Flux<Measurement> measurements) {
-        return this.repository.insert(measurements).then();
+        return this.repository.insert(measurements).log("ingest").then();
     }
 
 }

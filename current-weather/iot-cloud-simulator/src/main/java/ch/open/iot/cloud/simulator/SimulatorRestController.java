@@ -24,8 +24,9 @@ public class SimulatorRestController {
                 .uri("/measurements")
                 .contentType(MediaType.APPLICATION_STREAM_JSON)
                 .body(measurements, Measurement.class)
-                .retrieve()
-                .bodyToMono(Void.class);
+                .exchange() // provides a ClientResponse with status, headers and body. Alternative to .retrieve() to fetch the body directly.
+                .flatMap(clientResponse -> clientResponse.bodyToMono(Void.class));
+
     }
 
     @PostMapping("/start")

@@ -21,12 +21,12 @@ public class MeasurementHandler {
 
     public Mono<ServerResponse> getMeasurementsAsStream(ServerRequest request) {
         log.info("get measurements as stream");
-        return ok().contentType(APPLICATION_STREAM_JSON).body(repository.findAllBy().log(), Measurement.class);
+        return ok().contentType(APPLICATION_STREAM_JSON).body(repository.findAllBy().log("egress-stream"), Measurement.class);
     }
 
     public Mono<ServerResponse> getMeasurements(ServerRequest request) {
         log.info("get measurements");
-        return ok().body(repository.findAll().log(), Measurement.class);
+        return ok().body(repository.findAll().log("egress-list"), Measurement.class);
     }
 
 }
