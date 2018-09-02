@@ -30,7 +30,7 @@ public class MeasurementController {
                 .accept(MediaType.APPLICATION_STREAM_JSON)
                 .retrieve()
                 .bodyToFlux(Measurement.class)
-                .log();
+                .log("feed");
     }
 
 }

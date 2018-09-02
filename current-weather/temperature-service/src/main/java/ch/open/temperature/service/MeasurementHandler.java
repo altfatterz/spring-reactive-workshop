@@ -6,6 +6,8 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+
 import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
@@ -21,7 +23,11 @@ public class MeasurementHandler {
 
     public Mono<ServerResponse> getMeasurementsAsStream(ServerRequest request) {
         log.info("get measurements as stream");
-        return ok().contentType(APPLICATION_STREAM_JSON).body(repository.findAllBy().log("egress-stream"), Measurement.class);
+        return ok()
+                .contentType(APPLICATION_STREAM_JSON)
+                .body(repository
+                        .findAllByTimeGreaterThan(LocalDateTime.now())
+                        .log("egress-stream"), Measurement.class);
     }
 
     public Mono<ServerResponse> getMeasurements(ServerRequest request) {

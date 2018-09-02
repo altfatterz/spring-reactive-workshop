@@ -4,6 +4,8 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.data.mongodb.repository.Tailable;
 import reactor.core.publisher.Flux;
 
+import java.time.LocalDateTime;
+
 public interface MeasurementRepository extends ReactiveMongoRepository<Measurement, String> {
 
     // Infinite Streams with Tailable Cursor
@@ -15,5 +17,5 @@ public interface MeasurementRepository extends ReactiveMongoRepository<Measureme
     // - A tailable cursor remains open until it is closed externally.
     // - It emits data as new documents arrive in a capped collection.
     @Tailable
-    Flux<Measurement> findAllBy();
+    Flux<Measurement> findAllByTimeGreaterThan(LocalDateTime time);
 }
