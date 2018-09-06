@@ -28,7 +28,7 @@ public class Part03StepVerifierTest {
 
     @Test
     public void expectItemsAndThenError() {
-        workshop.expectItemsAndThenError(Flux.just("foo", "bar").concatWith(Mono.error(new RuntimeException())));
+        workshop.expectItemsAndThenError(Flux.just("foo", "bar").concatWith(Mono.error(new RuntimeException("BOOM"))));
     }
 
     @Test
