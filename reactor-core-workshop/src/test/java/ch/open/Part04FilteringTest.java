@@ -71,5 +71,14 @@ public class Part04FilteringTest {
 
     }
 
+    @Test
+    public void asyncFilter() {
+        Flux<Integer> flux = workshop.asyncComputedFilter(Flux.just(1, 2, 3, 4, 5));
+
+        StepVerifier.create(flux)
+                .expectNext(2, 4)
+                .verifyComplete();
+    }
+
 
 }
