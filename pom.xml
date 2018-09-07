@@ -13,6 +13,7 @@
         <module>reactor-core-workshop</module>
         <module>current-weather</module>
         <module>performance-test</module>
+        <module>customer-service</module>
     </modules>
 
 </project>
