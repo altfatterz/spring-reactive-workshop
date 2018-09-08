@@ -4,6 +4,12 @@ import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
+import java.lang.reflect.Array;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
 public class Part08AdvancedOperatorsTests {
 
     Part08AdvancedOperators workshop = new Part08AdvancedOperators();
@@ -38,6 +44,20 @@ public class Part08AdvancedOperatorsTests {
                 .verifyComplete();
 
     }
+
+    @Test
+    public void buffer() {
+        Flux<Integer> flux = Flux.range(1, 10);
+
+        StepVerifier.create(workshop.transform(flux))
+                .expectNext(Arrays.asList(1, 2, 3))
+                .expectNext(Arrays.asList(4, 5, 6))
+                .expectNext(Arrays.asList(7, 8, 9))
+                .expectNext(Arrays.asList(10))
+                .expectComplete()
+                .verify();
+    }
+
 
 
 

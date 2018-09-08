@@ -2,6 +2,7 @@ package ch.open;
 
 import reactor.core.publisher.Flux;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -68,6 +69,20 @@ public class Part08AdvancedOperators {
         });  // TO BE REMOVED
     }
 
+
+    /**
+     * TODO 4
+     *
+     * Collect incoming values into a single 3 element list and emit the list as a new value and continue doing this
+     * until the provided flux is complete.
+     *
+     * Look into {@link Flux#buffer} operator
+     */
+    public Flux<List<Integer>> transform(Flux<Integer> flux) {
+        return flux.buffer(3);
+    }
+
+
     public static String alphabet(int letterNumber) {
         if (letterNumber < 1 || letterNumber > 26) {
             return null;
@@ -75,5 +90,6 @@ public class Part08AdvancedOperators {
         int letterIndexAscii = 'A' + letterNumber - 1;
         return "" + (char) letterIndexAscii;
     }
+
 
 }
