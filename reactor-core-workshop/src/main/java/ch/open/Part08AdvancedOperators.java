@@ -51,7 +51,6 @@ public class Part08AdvancedOperators {
                 });  // TO BE REMOVED
     }
 
-
     /**
      * TODO 3
      *
@@ -68,7 +67,6 @@ public class Part08AdvancedOperators {
             }
         });  // TO BE REMOVED
     }
-
 
     /**
      * TODO 4
