@@ -30,7 +30,7 @@ The should be not collections.
 
 5. start the `temperature-dashboard`
 
-6. trigger the ito-cloud-simulator:
+6. trigger the `iot-cloud-simulator`
 
 ```bash
 http post :8082/start

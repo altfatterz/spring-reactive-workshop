@@ -14,7 +14,7 @@
         <module>current-weather</module>
         <module>performance-test</module>
         <module>customer-service</module>
-        <module>rabbitmq-examples</module>
+        <module>rabbitmq-demo</module>
     </modules>
 
 </project>
