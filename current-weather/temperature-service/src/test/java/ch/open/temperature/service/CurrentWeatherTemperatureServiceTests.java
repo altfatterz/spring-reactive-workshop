@@ -1,4 +1,4 @@
-package ch.open.temperaturedashboard;
+package ch.open.temperature.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TemperatureDashboardTests {
+public class CurrentWeatherTemperatureServiceTests {
 
     @Test
     public void contextLoads() {

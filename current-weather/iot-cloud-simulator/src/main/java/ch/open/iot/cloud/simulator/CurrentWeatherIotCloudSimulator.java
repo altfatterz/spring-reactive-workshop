@@ -1,12 +1,13 @@
-package ch.open.temperaturedashboard;
+package ch.open.iot.cloud.simulator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TemperatureDashboard {
+public class CurrentWeatherIotCloudSimulator {
 
     public static void main(String[] args) {
-        SpringApplication.run(TemperatureDashboard.class, args);
+        SpringApplication.run(CurrentWeatherIotCloudSimulator.class, args);
     }
+
 }
