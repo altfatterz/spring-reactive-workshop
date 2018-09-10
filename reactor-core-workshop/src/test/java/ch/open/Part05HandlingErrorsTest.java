@@ -1,47 +1,58 @@
 package ch.open;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+@Slf4j
 public class Part05HandlingErrorsTest {
 
     Part05HandlingErrors workshop = new Part05HandlingErrors();
 
     @Test
-    public void fallbackMonoOnError() {
-        Mono<String> mono = workshop.fallbackMonoOnError(Mono.error(new IllegalStateException()));
-        StepVerifier.create(mono)
-                .expectNext("foo")
-                .verifyComplete();
+    public void errorIsTerminal() {
+        Flux<String> flux = Flux.just("31", "12", "2", "A", "5", "6");
 
-        mono = workshop.fallbackMonoOnError(Mono.error(new IllegalArgumentException()));
-        StepVerifier.create(mono)
-                .expectError().verify();
+        Flux<Integer> numbers = workshop.errorIsTerminal(flux);
 
-        mono = workshop.fallbackMonoOnError(Mono.just("bar"));
-        StepVerifier.create(mono)
-                .expectNext("bar")
-                .verifyComplete();
+        StepVerifier.create(numbers).expectNext(31, 12, 2).expectError().verify();
     }
 
     @Test
-    public void fallbackFluxOnError() {
-        Flux<String> flux = workshop.fallbackFluxOnError(Flux.error(new IllegalStateException("boom")));
-        StepVerifier.create(flux)
-                .expectNext("foo", "bar")
-                .verifyComplete();
+    public void handleErrorWithFallback() {
+        Flux<String> flux = Flux.just("31", "12", "2", "A", "5", "6");
 
-        flux = workshop.fallbackFluxOnError(Flux.error(new IllegalStateException()));
-        StepVerifier.create(flux)
-                .expectError().verify();
+        Flux<Integer> numbers = workshop.handleErrorWithFallback(flux);
 
-        flux = workshop.fallbackFluxOnError(Flux.just("hello"));
-        StepVerifier.create(flux)
-                .expectNext("hello")
-                .verifyComplete();
+        StepVerifier.create(numbers).expectNext(31, 12, 2, 0).expectComplete().verify();
+    }
 
+    @Test
+    public void handleErrorAndContinue() {
+        Flux<String> flux = Flux.just("31", "12", "2", "A", "5", "6");
+
+        Flux<Integer> numbers = workshop.handleErrorAndContinue(flux);
+
+        StepVerifier.create(numbers).expectNext(31, 12, 2, 0, 5, 6).expectComplete().verify();
+    }
+
+    @Test
+    public void handleErrorWithEmptyMonoAndContinue() {
+        Flux<String> flux = Flux.just("31", "12", "2", "A", "5", "6");
+
+        Flux<Integer> numbers = workshop.handleErrorWithEmptyMonoAndContinue(flux);
+
+        StepVerifier.create(numbers).expectNext(31, 12, 2, 5, 6).expectComplete().verify();
+    }
+
+    @Test
+    public void timeOutWithRetry() {
+        Flux<String> colors = Flux.just("red", "black", "tan");
+
+        Flux<String> results = workshop.timeOutWithRetry(colors);
+
+        StepVerifier.create(results).expectNext("processed red", "default", "processed tan").verifyComplete();
     }
 
 }

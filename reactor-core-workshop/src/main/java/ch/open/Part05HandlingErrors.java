@@ -1,21 +1,90 @@
 package ch.open;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+
+/**
+ * Reactive Streams specification specifies that errors are terminal events.
+ */
+@Slf4j
 public class Part05HandlingErrors {
 
-    // TODO Emit "foo" in case IllegalStateException error occurs in the input Mono, else do not change the input Mono.
-    public Mono<String> fallbackMonoOnError(Mono<String> mono) {
-        return mono.onErrorReturn(IllegalStateException.class, "foo"); // TO BE REMOVED
+    /**
+     * TODO 1
+     * <p>
+     * Map the received flux into numbers using {@link Integer#parseInt} and observe that in case of
+     * {@link NumberFormatException} the flux is terminated with error.
+     * Use the log operator to view that the flux is terminated with error.
+     */
+    public Flux<Integer> errorIsTerminal(Flux<String> numbers) {
+        return numbers.map(s -> Integer.parseInt(s)).log(); // TO BE REMOVED
     }
 
-    // TODO Emit "foo" and "bar" when an error occurs with message "boom" in the input Flux, else do not change the input Flux.
-    public Flux<String> fallbackFluxOnError(Flux<String> flux) {
-        return flux.onErrorResume(throwable -> "boom".equals(throwable.getMessage()),
-                throwable -> Flux.just("foo", "bar")); // TO BE REMOVED
+    /**
+     * TODO 2
+     * <p>
+     * Map the received flux into numbers using {@link Integer#parseInt} and provide a fallback of 0 in case of
+     * {@link NumberFormatException}.
+     * Use the log operator to view that the flux is terminated successfully.
+     */
+    public Flux<Integer> handleErrorWithFallback(Flux<String> numbers) {
+        return numbers.map(s -> Integer.parseInt(s))
+                .onErrorReturn(NumberFormatException.class, 0)
+                .log(); // TO BE REMOVED
     }
 
-    // demonstrate that onReturnOnError doesn't unsubscribe from the source, the map operator will be still called.
+
+    /**
+     * TODO 3
+     * <p>
+     * Map the received flux into numbers using {@link Integer#parseInt} and provide a fallback of 0 in case of
+     * {@link NumberFormatException} and continue with other items.
+     * <p>
+     * Use the flatMap and check where you put the onErrorReturn operator
+     */
+    public Flux<Integer> handleErrorAndContinue(Flux<String> numbers) {
+        return numbers.flatMap(s -> Mono.just(s).map(Integer::parseInt)
+                .onErrorReturn(NumberFormatException.class, 0).log()); // TO BE REMOVED
+    }
+
+    /**
+     * TODO 4
+     * <p>
+     * Map the received flux into numbers using {@link Integer#parseInt} and provide an empty Mono when
+     * {@link NumberFormatException} is occurred and continue with other items.
+     */
+    public Flux<Integer> handleErrorWithEmptyMonoAndContinue(Flux<String> numbers) {
+        return numbers.flatMap(s -> Mono.just(s).map(Integer::parseInt)
+                .onErrorResume(throwable -> Mono.empty())).log(); // TO BE REMOVED
+
+    }
+
+
+    /**
+     * TODO 5
+     * <p>
+     * For each item call received in colors flux call the {@link #simulateRemoteCall} operation.
+     * Timeout in case the {@link #simulateRemoteCall} does not return within 400 ms, but retry twice
+     * If still no response then provide "default" as a return value
+     */
+    public Flux<String> timeOutWithRetry(Flux<String> colors) {
+        return colors.concatMap(color ->
+                simulateRemoteCall(color)
+                        .timeout(Duration.ofMillis(400))
+                        .doOnError(s -> log.info(s.getMessage()))
+                        .retry(2).onErrorReturn("default")).log();   // TO BE REMOVED
+    }
+
+    public Mono<String> simulateRemoteCall(String input) {
+        int delay = input.length() * 100;
+        return Mono.just(input)
+                .doOnNext(s -> log.info("Received {} delaying for {} ", s, delay))
+                .map(i -> "processed " + i)
+                .delayElement(Duration.of(delay, ChronoUnit.MILLIS));
+    }
 
 }
