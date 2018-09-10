@@ -16,10 +16,17 @@ public class Part06SubscribeTest {
                 .expectNext(1, 2, 3).verifyComplete();
     }
 
-
     @Test
     public void subscribeWithConsumer() {
         Flux<Integer> flux = workshop.subscribeWithConsumer();
+
+        StepVerifier.create(flux)
+                .expectNext(1, 2, 3).verifyComplete();
+    }
+
+    @Test
+    public void subscribeWithConsumerAndCompleteConsumer() {
+        Flux<Integer> flux = workshop.subscribeWithConsumerAndCompleteConsumer();
 
         StepVerifier.create(flux)
                 .expectNext(1, 2, 3).verifyComplete();
