@@ -9,7 +9,7 @@ Demonstrating:
 Start Redis via:
 
 ```bash
-docker run -p 6379:6379 -d redis:4
+docker run -d --name redis -p 6379:6379 redis:4
 
 Unable to find image 'redis:4' locally
 4: Pulling from library/redis
