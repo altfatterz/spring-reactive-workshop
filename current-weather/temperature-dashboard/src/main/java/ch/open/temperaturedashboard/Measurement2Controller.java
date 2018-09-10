@@ -27,18 +27,16 @@ public class Measurement2Controller {
                 .retrieve()
                 .bodyToFlux(Measurement.class);
 
-        // Creates a new lazy context variable, wrapping a reactive asynchronous data stream
-        // and specifying a buffer size.
-        // Sets Thymeleaf in data-driven mode in order to produce (render) Server-Sent Events
-        // as the Flux produces values.
         // This object works as a wrapper that avoids Spring WebFlux to resolve before rendering the HTML.
-        // IReactiveDataDriverContextVariable
+        // Sets Thymeleaf in data-driven mode in order to produce (render) Server-Sent Events as the Flux produces values
+        // Creates a new lazy context variable, wrapping a reactive asynchronous data stream and specifying a buffer size.
 
         IReactiveDataDriverContextVariable dataDriver = new ReactiveDataDriverContextVariable(measurements,
                 1);
 
         model.addAttribute("measurements", dataDriver);
 
+        // the name of the view
         return "reactive-template";
 
     }

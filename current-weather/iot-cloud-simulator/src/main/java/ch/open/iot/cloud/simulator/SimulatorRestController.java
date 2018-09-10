@@ -24,7 +24,9 @@ public class SimulatorRestController {
                 .uri("/measurements")
                 .contentType(MediaType.APPLICATION_STREAM_JSON)
                 .body(measurements, Measurement.class)
-                .exchange() // provides a ClientResponse with status, headers and body. Alternative to .retrieve() to fetch the body directly.
+                // .exchange() provides a ClientResponse with status, headers and body.
+                // It is alternative to .retrieve() to fetch the body directly.
+                .exchange()
                 .flatMap(clientResponse -> clientResponse.bodyToMono(Void.class));
 
     }

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Temperature Dashboard</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/webjars/highcharts/6.1.1/css/highcharts.css"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="/webjars/highcharts/css/highcharts.css"/>
 
 </head>
 <body>
@@ -16,9 +17,9 @@
     <div id="lake-temperatures" style="height: 400px; min-width: 310px"></div>
 </div>
 
-<script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="/webjars/highcharts/6.1.1/highcharts.js"></script>
-<script type="text/javascript" src="/webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
+<script th:src="@{/webjars/highcharts/js/highcharts.js}"></script>
 <script type="text/javascript">
 
     // Setting up the chart
