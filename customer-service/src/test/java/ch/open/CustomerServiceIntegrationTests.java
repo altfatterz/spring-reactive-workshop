@@ -20,12 +20,12 @@ public class CustomerServiceIntegrationTests {
     private WebTestClient webTestClient;
 
     @Test
-    @WithMockUser(username = "admin", password = "admin")
+    @WithMockUser(roles = "ADMIN")
     public void getCustomers() {
         webTestClient
                 .get().uri("/customers")
                 .exchange()
-                .expectStatus().isOk().expectBodyList(Customer.class);
+                .expectStatus().isOk().expectBodyList(Customer.class).hasSize(7);
     }
 
     @Test

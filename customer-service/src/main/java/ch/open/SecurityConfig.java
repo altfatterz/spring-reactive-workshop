@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +28,7 @@ class SecurityConfig {
     SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http) throws Exception {
         http
                 .authorizeExchange()
-                    .pathMatchers("/customers").access(this::isAdmin)
+                    .pathMatchers("/customers").hasRole("ADMIN")
                     .pathMatchers("/customers-view").access(this::isAdmin)
                     .anyExchange().authenticated()
                 .and()
@@ -38,11 +39,10 @@ class SecurityConfig {
         return http.build();
     }
 
-    private Mono<AuthorizationDecision> isAdmin(Mono<Authentication> authentication,
-                                                AuthorizationContext authorizationContext) {
+    private Mono<AuthorizationDecision> isAdmin(Mono<Authentication> authentication, AuthorizationContext authorizationContext) {
         return authentication
-                .map(Authentication::getName)
-                .map(username -> username.equals("admin"))
+                .map(Authentication::getAuthorities)
+                .map(authorities -> authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN")))
                 .map(AuthorizationDecision::new);
     }
 }
