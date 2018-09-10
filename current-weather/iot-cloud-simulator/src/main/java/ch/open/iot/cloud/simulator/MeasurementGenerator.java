@@ -21,9 +21,9 @@ public class MeasurementGenerator {
     private final List<Measurement> measurements = new ArrayList<>();
 
     public MeasurementGenerator() {
-        measurements.add(new Measurement("Oeschinensee", BigDecimal.valueOf(15.5)));
-        measurements.add(new Measurement("Seebergsee", BigDecimal.valueOf(10.8)));
-        measurements.add(new Measurement("Thunersee", BigDecimal.valueOf(12.1)));
+        measurements.add(new Measurement("Zürichsee", BigDecimal.valueOf(15.5)));
+        measurements.add(new Measurement("Bodensee", BigDecimal.valueOf(10.8)));
+        measurements.add(new Measurement("Vierwaldstättersee", BigDecimal.valueOf(12.1)));
     }
 
     public Flux<Measurement> fetchMeasurementStream(Duration duration) {
