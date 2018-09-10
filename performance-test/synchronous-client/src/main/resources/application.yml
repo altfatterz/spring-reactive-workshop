@@ -2,4 +2,4 @@ server:
   port: 9091
 
   tomcat:
-    max-threads: 10
+    max-threads: 8

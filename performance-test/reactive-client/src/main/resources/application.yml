@@ -1,2 +1,5 @@
 server:
   port: 9092
+
+  tomcat:
+    max-threads: 8
