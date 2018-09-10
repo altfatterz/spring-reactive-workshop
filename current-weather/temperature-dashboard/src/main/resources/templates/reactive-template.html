@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Temperature Dashboard</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0/css/bootstrap.min.css"/>
 
 </head>
 <body>
@@ -15,16 +15,16 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>UUIDs</th>
+            <th>Measurements</th>
         </tr>
         </thead>
-        <tr th:each="uuid : ${uuids}">
-            <td th:text="${uuid}">...</td>
+        <tr th:each="measurement : ${measurements}">
+            <td th:text="${measurement}">...</td>
         </tr>
     </table>
 </div>
 
-<script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
 
 </body>
 </html>

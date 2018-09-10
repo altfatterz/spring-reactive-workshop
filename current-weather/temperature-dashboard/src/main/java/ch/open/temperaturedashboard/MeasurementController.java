@@ -2,10 +2,18 @@ package ch.open.temperaturedashboard;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.thymeleaf.spring5.context.webflux.IReactiveDataDriverContextVariable;
+import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
 import reactor.core.publisher.Flux;
+
+import java.time.Duration;
+import java.util.UUID;
+import java.util.function.Function;
 
 @Controller
 public class MeasurementController {
@@ -16,8 +24,8 @@ public class MeasurementController {
         this.webClient = webClient;
     }
 
-    @GetMapping("/measurements")
-    public String measurements() {
+    @GetMapping("/")
+    public String getMeasurementsView() {
         return "measurements";
     }
 
@@ -32,5 +40,7 @@ public class MeasurementController {
                 .bodyToFlux(Measurement.class)
                 .log("feed");
     }
+
+
 
 }
