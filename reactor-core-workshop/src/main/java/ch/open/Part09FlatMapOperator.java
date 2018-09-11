@@ -46,7 +46,7 @@ public class Part09FlatMapOperator {
      * the used threads.
      */
     Flux<String> simpleFlatMap(Flux<String> greetings) {
-        return greetings.flatMap(greeting -> asyncRemoteCall(greeting)).log(); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -62,9 +62,7 @@ public class Part09FlatMapOperator {
      * and the used threads.
      */
     Flux<String> flatMapSequential(Flux<String> friends) {
-        return friends
-                .map(String::toUpperCase)
-                .flatMapSequential(friend -> asyncRemoteCall(friend)).log(); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -79,7 +77,7 @@ public class Part09FlatMapOperator {
      */
     // TODO
     Flux<String> flatMapWithConcurrency(Flux<String> capitals) {
-        return capitals.flatMap(capital -> asyncRemoteCall(capital), 1).log(); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -93,7 +91,7 @@ public class Part09FlatMapOperator {
      * of the items and the used threads.
      */
     Flux<String> concatMapExample(Flux<String> rivers) {
-        return rivers.concatMap(river -> asyncRemoteCall(river)).log(); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -110,9 +108,7 @@ public class Part09FlatMapOperator {
      * Look into {@link Flux#groupBy(Function)}, {@link Flux#count()} and {@link Flux#flatMap(Function)} operators
      */
     Flux<ColorCount> fluxOfFluxes(Flux<String> colors) {
-        return colors.groupBy(color -> color)
-                .flatMap(group -> group.count()
-                        .map(count -> new ColorCount(group.key(), count))).log(); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -129,12 +125,7 @@ public class Part09FlatMapOperator {
      * Look into {@link Flux#window(int)}' and {@link Flux#flatMap(Function, Function, Supplier)} operators.
      */
     Flux<String> complexFlatMap(Flux<String> values) {
-        return values.window(2)
-                .flatMap(window -> window.flatMap(
-                        Flux::just,
-                        Flux::error,
-                        () -> Flux.just("---")
-                )).log();  // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -149,15 +140,7 @@ public class Part09FlatMapOperator {
      * Look into {@link Flux#flatMap(Function)' and {@link Flux#flatMap(Function, Function, Supplier)} operators
      */
     Flux<String> flatMapOverrideError(Flux<String> names) {
-        return names.flatMap(name -> asyncRemoteCallWithErrorSignal(name)
-                .flatMap(Flux::just,
-                        err -> {
-                            log.info("got exception but we ignore it");
-                            return Flux.empty();
-                        },
-                        Flux::empty)
-        ).log(); // TO BE REMOVED
-
+        return null;
     }
 
     /**
@@ -169,7 +152,7 @@ public class Part09FlatMapOperator {
      * Look into {@link Mono#flatMapMany(Function)} operator
      */
     Flux<String> flatMapManyExample(Mono<String> greeting) {
-        return greeting.flatMapMany(s -> asyncRemoteCall(s)).log(); // TO BE REMOVED
+        return null;
     }
 
 
@@ -183,14 +166,7 @@ public class Part09FlatMapOperator {
      * Look into {@link Mono#flatMapIterable(Function)}} operator
      */
     Flux<String> flatMapIterableExample(Flux<String> mountains) {
-        return mountains.flatMapIterable(s -> {
-            try {
-                return syncRemoteCall(s);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return Collections.emptyList();
-        }).log(); // TO BE REMOVED
+        return null;
     }
 
     public static Flux<String> asyncRemoteCall(String s) {

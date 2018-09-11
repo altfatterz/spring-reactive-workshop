@@ -24,12 +24,7 @@ public class Part03StepVerifier {
      * Use the {@link StepVerifier} to check that the flux parameter emits subscription event and completes successfully
      */
     public void expectSubscriptionAndThenComplete(Flux<String> flux) {
-        // fail // TO BE ADDED
-
-        StepVerifier.create(flux)
-                .expectSubscription()
-                .expectComplete()
-                .verify(); // TO BE REMOVED
+        fail();
     }
 
     /**
@@ -38,10 +33,7 @@ public class Part03StepVerifier {
      * Use the {@link StepVerifier} to check that the flux parameter emits "foo" and "bar" items and completes successfully
      */
     public void expectItemsAndThenComplete(Flux<String> flux) {
-        // fail() // TO BE ADDED
-        StepVerifier.create(flux)
-                .expectNext("foo", "bar")
-                .verifyComplete(); // TO BE REMOVED
+        fail();
     }
 
     /**
@@ -50,11 +42,7 @@ public class Part03StepVerifier {
      * Use the {@link StepVerifier} to check that the flux parameter emits "foo" and "bar" items and then an error with "error" message
      */
     public void expectItemsAndThenError(Flux<String> flux) {
-        // fail() // TO BE ADDED
-        StepVerifier.create(flux)
-                .expectNext("foo", "bar")
-                .expectErrorMessage("error")
-                .verify(); // TO BE REMOVED
+        fail();
     }
 
     /**
@@ -64,11 +52,7 @@ public class Part03StepVerifier {
      * a Customer with name "Jane" and then completes successfully
      */
     public void expectItemsWithAndThenComplete(Flux<Customer> customers) {
-        // fail() // TO BE ADDED
-        StepVerifier.create(customers)
-                .assertNext(customer -> assertThat(customer.getName()).isEqualTo("John"))
-                .assertNext(customer -> assertThat(customer.getName()).isEqualTo("Jane"))
-                .verifyComplete(); // TO BE REMOVED
+        fail();
     }
 
     /**
@@ -78,10 +62,7 @@ public class Part03StepVerifier {
      * Notice how long the test takes.
      */
     public void expect5Items(Flux<Long> numbers) {
-        // fail() // TO BE ADDED
-        StepVerifier.create(numbers)
-                .expectNextCount(5)
-                .verifyComplete(); // TO BE REMOVED
+        fail();
     }
 
     /**
@@ -96,12 +77,7 @@ public class Part03StepVerifier {
      * Look into {@link StepVerifier#withVirtualTime(Supplier)}
      */
     public void expect3600Items(Supplier<Flux<Long>> supplier) {
-        // fail() // TO BE ADDED
-
-        StepVerifier.withVirtualTime(supplier)
-                .thenAwait(Duration.ofHours(1))
-                .expectNextCount(3600)
-                .verifyComplete(); // TO BE REMOVED
+        fail();
 
     }
 

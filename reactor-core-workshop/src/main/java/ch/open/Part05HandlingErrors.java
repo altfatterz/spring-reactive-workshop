@@ -21,7 +21,7 @@ public class Part05HandlingErrors {
      * Use the log operator to view that the flux is terminated with error.
      */
     public Flux<Integer> errorIsTerminal(Flux<String> numbers) {
-        return numbers.map(s -> Integer.parseInt(s)).log(); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -32,9 +32,7 @@ public class Part05HandlingErrors {
      * Use the log operator to view that the flux is terminated successfully.
      */
     public Flux<Integer> handleErrorWithFallback(Flux<String> numbers) {
-        return numbers.map(s -> Integer.parseInt(s))
-                .onErrorReturn(NumberFormatException.class, 0)
-                .log(); // TO BE REMOVED
+        return null;
     }
 
 
@@ -47,8 +45,7 @@ public class Part05HandlingErrors {
      * Use the flatMap and check where you put the onErrorReturn operator
      */
     public Flux<Integer> handleErrorAndContinue(Flux<String> numbers) {
-        return numbers.flatMap(s -> Mono.just(s).map(Integer::parseInt)
-                .onErrorReturn(NumberFormatException.class, 0).log()); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -58,8 +55,7 @@ public class Part05HandlingErrors {
      * {@link NumberFormatException} is occurred and continue with other items.
      */
     public Flux<Integer> handleErrorWithEmptyMonoAndContinue(Flux<String> numbers) {
-        return numbers.flatMap(s -> Mono.just(s).map(Integer::parseInt)
-                .onErrorResume(throwable -> Mono.empty())).log(); // TO BE REMOVED
+        return null;
 
     }
 
@@ -72,11 +68,7 @@ public class Part05HandlingErrors {
      * If still no response then provide "default" as a return value
      */
     public Flux<String> timeOutWithRetry(Flux<String> colors) {
-        return colors.concatMap(color ->
-                simulateRemoteCall(color)
-                        .timeout(Duration.ofMillis(400))
-                        .doOnError(s -> log.info(s.getMessage()))
-                        .retry(2).onErrorReturn("default")).log();   // TO BE REMOVED
+        return null;
     }
 
     public Mono<String> simulateRemoteCall(String input) {

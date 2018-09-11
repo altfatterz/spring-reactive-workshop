@@ -17,11 +17,7 @@ public class Part08AdvancedOperators {
      * Create a sequence emitting items 1, 2 and then complete. Use the {@link Flux#create(Consumer)}
      */
     public Flux<Integer> createFlux() {
-        return Flux.create(subscriber -> {
-            subscriber.next(1);
-            subscriber.next(2);
-            subscriber.complete();
-        }); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -41,15 +37,7 @@ public class Part08AdvancedOperators {
      * ...
      */
     public Flux<Integer> generateFlux(int nr) {
-        return Flux.generate(
-                () -> 0,
-                (state, sink) -> {
-                    if (state == nr) {
-                        sink.complete();
-                    }
-                    sink.next(2 * state);
-                    return state + 1;
-                });  // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -61,12 +49,7 @@ public class Part08AdvancedOperators {
      * Look into {@link Flux#handle(BiConsumer)} to remove any nulls.
      */
     public Flux<String> removeNulls(Flux<Integer> flux) {
-        return flux.handle((i, sink) -> {
-            String letter = alphabet(i);
-            if (letter != null) {
-                sink.next(letter);
-            }
-        });  // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -78,7 +61,7 @@ public class Part08AdvancedOperators {
      * Look into {@link Flux#buffer} operator
      */
     public Flux<List<Integer>> transform(Flux<Integer> flux) {
-        return flux.buffer(3);
+        return null;
     }
 
 

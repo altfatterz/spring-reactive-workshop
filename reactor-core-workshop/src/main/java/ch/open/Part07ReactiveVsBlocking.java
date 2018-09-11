@@ -19,7 +19,7 @@ public class Part07ReactiveVsBlocking {
      * Return the Customer emitted by the provided Mono
      */
     public Customer monoToCustomer(Mono<Customer> customer) {
-        return customer.block(); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -28,7 +28,7 @@ public class Part07ReactiveVsBlocking {
      * Return the Customers emitted by the provided Flux
      */
     public Iterable<Customer> fluxToCustomers(Flux<Customer> customers) {
-        return customers.toIterable(); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -40,8 +40,7 @@ public class Part07ReactiveVsBlocking {
      * Configure that each subscription will happen on a worker from Schedulers.elastic
      */
     public Flux<Customer> blockingRepositoryToFlux(BlockingCustomerRepository repository) {
-        return Flux.defer(() -> Flux.fromIterable(repository.findAll()))
-                .subscribeOn(Schedulers.elastic()); // TO BE REMOVED
+        return null;
     }
 
     /**
@@ -51,9 +50,7 @@ public class Part07ReactiveVsBlocking {
      * Mono<Void>
      */
     public Mono<Void> fluxToBlockingRepository(Flux<Customer> customers, BlockingCustomerRepository repository) {
-        return customers
-                .publishOn(Schedulers.elastic())
-                .doOnNext(repository::save).then();  // TO BE REMOVED
+        return null;
 
     }
 

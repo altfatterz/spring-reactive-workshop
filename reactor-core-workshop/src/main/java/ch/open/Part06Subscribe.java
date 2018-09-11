@@ -19,9 +19,7 @@ public class Part06Subscribe {
      * Subscribe to this Flux without any Consumer. Inspect the logs by using the 'log' operator.
      */
     public Flux<Integer> subscribeEmpty() {
-        Flux<Integer> flux = Flux.just(1, 2, 3); // TO BE REMOVED
-        flux.log().subscribe();  // TO BE REMOVED
-        return flux;
+        return null;
     }
 
     /**
@@ -33,9 +31,7 @@ public class Part06Subscribe {
      * Subscribe to this Flux using a Consumer, which prints out the elements. Inspect the logs by using the 'log' operator.
      */
     public Flux<Integer> subscribeWithConsumer() {
-        Flux<Integer> flux = Flux.just(1, 2, 3); // TO BE REMOVED
-        flux.log().subscribe(integer -> log.info("{}", integer)); // TO BE REMOVED
-        return flux;
+        return null;
     }
 
     /**
@@ -48,9 +44,7 @@ public class Part06Subscribe {
      * (which prints out "completed"). Inspect the logs by using the 'log' operator.
      */
     public Flux<Integer> subscribeWithConsumerAndCompleteConsumer() {
-        Flux<Integer> flux = Flux.just(1, 2, 3);
-        flux.subscribe(integer -> log.info("{}", integer), null, () -> System.out.println("completed"));
-        return flux;
+        return null;
     }
 
 
@@ -65,15 +59,7 @@ public class Part06Subscribe {
      * Inspect the logs by using the 'log' operator.
      */
     public Flux<Integer> subscribeWithConsumerAndErrorConsumer() {
-        Flux<Integer> flux = Flux.just(1, 2, 3, 4).map(i -> {
-            if (i != 4) {
-                return i;
-            } else {
-                throw new IllegalStateException("error");
-            }
-        });
-        flux.log().subscribe(integer -> log.info("{}", integer), throwable -> log.info("{}", throwable.getMessage()));
-        return flux;
+        return null;
     }
 
     /**
@@ -86,14 +72,7 @@ public class Part06Subscribe {
      * Inspect the logs by using the 'log' operator.
      */
     public Flux<Integer> subscribeWithSubscriptionConsumer() {
-        Flux<Integer> flux = Flux.just(1, 2, 3);
-        flux.log().subscribe(null, null, null, new Consumer<Subscription>() {
-            @Override
-            public void accept(Subscription subscription) {
-                subscription.request(2);
-            }
-        });
-        return flux;
+        return null;
     }
 
     /**
@@ -105,33 +84,7 @@ public class Part06Subscribe {
      * the current element it was. Inspect the logs using the 'log' operator.
      */
     public Flux<Integer> subscribeWithSubscription() {
-        Flux<Integer> flux = Flux.just(1, 2, 3);
-        flux.log().subscribe(new Subscriber<Integer>() {
-
-            Subscription s;
-
-            @Override
-            public void onSubscribe(Subscription s) {
-                this.s = s;
-                s.request(1);
-            }
-
-            @Override
-            public void onNext(Integer integer) {
-                s.request(integer);
-            }
-
-            @Override
-            public void onError(Throwable t) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-        return flux;
+        return null;
     }
 
 }

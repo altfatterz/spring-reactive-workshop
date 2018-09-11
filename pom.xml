@@ -10,12 +10,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>reactor-core-workshop</module>
-        <module>reactor-core-workshop-solution</module>
         <module>current-weather</module>
         <module>performance-test</module>
         <module>customer-service</module>
         <module>rabbitmq-demo</module>
+        <module>reactor-core-workshop-solution</module>
+        <module>reactor-core-workshop</module>
     </modules>
 
 </project>
