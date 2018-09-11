@@ -1,21 +1,24 @@
-package ch.open.synchronousclient;
+package ch.open.slowservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import reactor.core.publisher.Mono;
+
+import java.time.Duration;
+import java.util.UUID;
 
 @SpringBootApplication
 @RestController
-public class SynchronousClient {
+public class PerformanceTestSlowService {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SynchronousClient.class, args);
+		SpringApplication.run(PerformanceTestSlowService.class, args);
 	}
 
 	@GetMapping("/")
-	public String endpoint(RestTemplate restTemplate) {
-		return restTemplate.getForObject("http://localhost:9090", String.class);
+	public Mono<String> slow() {
+		return Mono.delay(Duration.ofSeconds(5)).map(aLong -> UUID.randomUUID().toString());
 	}
 }

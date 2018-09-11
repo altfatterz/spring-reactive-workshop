@@ -14,15 +14,15 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @SpringBootApplication
-public class LoadGenerator implements CommandLineRunner {
+public class PerformanceTestLoadGenerator implements CommandLineRunner {
 
     public static void main(String[] args) {
-        SpringApplication.run(LoadGenerator.class, args);
+        SpringApplication.run(PerformanceTestLoadGenerator.class, args);
     }
 
     @Override
     public void run(String... args) {
-        int nr_concurrent_clients = Integer.valueOf(args[0]);
+        int nrOfConcurrentClients = Integer.valueOf(args[0]);
         String port = args[1];
 
         WebClient webClient = WebClient.create("http://localhost:" + port);
@@ -31,10 +31,10 @@ public class LoadGenerator implements CommandLineRunner {
                 .flatMap(clientResponse -> clientResponse.bodyToMono(String.class));
 
         StopWatch stopWatch = new StopWatch();
-        stopWatch.start("concurrent access: " + nr_concurrent_clients);
+        stopWatch.start("concurrent access: " + nrOfConcurrentClients);
 
         List<CompletableFuture<?>> futures = new ArrayList<>();
-        for (int i = 0; i < nr_concurrent_clients; i++) {
+        for (int i = 0; i < nrOfConcurrentClients; i++) {
             futures.add(response.toFuture());
         }
 

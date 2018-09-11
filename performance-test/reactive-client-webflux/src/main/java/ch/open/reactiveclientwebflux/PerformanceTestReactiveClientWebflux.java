@@ -1,4 +1,4 @@
-package ch.open.reactiveclient;
+package ch.open.reactiveclientwebflux;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +9,10 @@ import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 @RestController
-public class ReactiveClient {
+public class PerformanceTestReactiveClientWebflux {
 
     public static void main(String[] args) {
-        SpringApplication.run(ReactiveClient.class, args);
+        SpringApplication.run(PerformanceTestReactiveClientWebflux.class, args);
     }
 
     private final WebClient webClient = WebClient.builder().build();

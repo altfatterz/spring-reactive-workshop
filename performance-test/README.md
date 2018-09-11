@@ -1,3 +1,13 @@
+## Performance test application
+
+The application is composed of the followings:
+
+- `slow-service` - provides a /slow endpoint which returns response in 5 seconds
+- `synchronous-client` - running in tomcat, calls `slow-service` using `RestTemplate`
+- `reactive-client` - running in tomcat, calls `slow-service` using `WebClient`
+- `reactive-client-webflux` - running in netty, calls `slow-serivce` using `WebClient`
+- `load-generator` - creates load on the `synchronous-client`, `reactive-client` and `reactive-client-webflux` 
+
 Build the project with `mvn clean package`
 
 1. Start up `slow-service` (port: 9090)
@@ -44,7 +54,7 @@ ms     %     Task name
 7. Start `load-generator` with 100 concurrent clients for the `reactive-client-webflux`:
 
 ```
-java -jar target/load-generator.jar 20 9092
+java -jar target/load-generator.jar 20 9093
 
 ch.open.loadgenerator.LoadGenerator      : StopWatch '': running time (millis) = 5212
 -----------------------------------------
