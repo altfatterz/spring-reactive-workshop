@@ -3,14 +3,12 @@ package ch.open;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -187,7 +185,6 @@ public class Part09FlatMapOperator {
 
     @Getter
     @AllArgsConstructor
-    @ToString
     @EqualsAndHashCode
     static class ColorCount {
         String color;

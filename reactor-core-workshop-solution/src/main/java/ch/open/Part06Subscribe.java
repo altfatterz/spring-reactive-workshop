@@ -49,7 +49,7 @@ public class Part06Subscribe {
      */
     public Flux<Integer> subscribeWithConsumerAndCompleteConsumer() {
         Flux<Integer> flux = Flux.just(1, 2, 3);
-        flux.subscribe(integer -> log.info("{}", integer), null, () -> System.out.println("completed"));
+        flux.subscribe(integer -> log.info("{}", integer), null, () -> log.info("completed"));
         return flux;
     }
 
