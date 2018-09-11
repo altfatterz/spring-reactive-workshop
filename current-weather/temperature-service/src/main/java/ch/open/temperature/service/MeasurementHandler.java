@@ -1,6 +1,6 @@
 package ch.open.temperature.service;
 
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -12,7 +12,7 @@ import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 @Component
-@Log
+@Slf4j
 public class MeasurementHandler {
 
     private final MeasurementRepository repository;
