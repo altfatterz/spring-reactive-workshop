@@ -5,6 +5,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.function.Consumer;
+
 import static ch.open.Part09FlatMapOperator.*;
 
 public class Part09FlatMapOperatorTests {

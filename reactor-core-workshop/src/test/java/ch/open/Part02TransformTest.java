@@ -27,12 +27,6 @@ public class Part02TransformTest {
     }
 
     @Test
-    public void charactersInOrder() {
-        Flux<String> flux = workshop.charactersInOrder(Flux.just("foo", "bar"));
-        StepVerifier.create(flux).expectNext("F", "O", "O", "B", "A", "R").verifyComplete();
-    }
-
-    @Test
     public void combineInEmissionOrder() {
         Flux<String> flux1 = Flux.just("foo", "bar").delayElements(Duration.ofMillis(1));
         Flux<String> flux2 = Flux.just("a", "b", "c").delayElements(Duration.ofMillis(1));
@@ -67,8 +61,13 @@ public class Part02TransformTest {
         Mono<String> deliveryAddress = Mono.just("Paradeplatz Zurich");
 
         Mono<Order> order = workshop.combineValues(phoneNumber, deliveryAddress);
-
         StepVerifier.create(order).expectNext(new Order("076123456", "Paradeplatz Zurich"));
+
+        order = workshop.combineValues(Mono.empty(), deliveryAddress);
+        StepVerifier.create(order).verifyComplete();
+
+        order = workshop.combineValues(Mono.error(new RuntimeException()), deliveryAddress);
+        StepVerifier.create(order).verifyError();
     }
 
 }

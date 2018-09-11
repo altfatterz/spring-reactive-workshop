@@ -16,7 +16,7 @@ public class Part06Subscribe {
      * <p>
      * Return a Flux which emits: 1, 2, 3 integers and then completes.
      * <p>
-     * Subscribe to this Flux without any Consumer, error Consumer and complete Consumer. Inspect the logs by using the 'log' operator.
+     * Subscribe to this Flux without any Consumer. Inspect the logs by using the 'log' operator.
      */
     public Flux<Integer> subscribeEmpty() {
         Flux<Integer> flux = Flux.just(1, 2, 3); // TO BE REMOVED
@@ -69,7 +69,7 @@ public class Part06Subscribe {
             if (i != 4) {
                 return i;
             } else {
-                throw new IllegalStateException("boom");
+                throw new IllegalStateException("error");
             }
         });
         flux.log().subscribe(integer -> log.info("{}", integer), throwable -> log.info("{}", throwable.getMessage()));

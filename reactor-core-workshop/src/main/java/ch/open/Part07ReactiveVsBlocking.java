@@ -34,7 +34,7 @@ public class Part07ReactiveVsBlocking {
     /**
      * TODO 3
      * <p>
-     * Create a Flux reading all Customers from the blocking {@link BlockingCustomerRepository}
+     * Create a Flux reading all customers from the blocking {@link BlockingCustomerRepository}
      * deferred until the flux is subscribed.
      * <p>
      * Configure that each subscription will happen on a worker from Schedulers.elastic

@@ -47,13 +47,13 @@ public class Part03StepVerifier {
     /**
      * TODO 3
      * <p>
-     * Use the {@link StepVerifier} to check that the flux parameter emits "foo" and "bar" items and then an error with "BOOM" message
+     * Use the {@link StepVerifier} to check that the flux parameter emits "foo" and "bar" items and then an error with "error" message
      */
     public void expectItemsAndThenError(Flux<String> flux) {
         // fail() // TO BE ADDED
         StepVerifier.create(flux)
                 .expectNext("foo", "bar")
-                .expectErrorMessage("BOOM")
+                .expectErrorMessage("error")
                 .verify(); // TO BE REMOVED
     }
 

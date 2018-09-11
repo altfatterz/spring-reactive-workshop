@@ -14,7 +14,7 @@ public class Part08AdvancedOperators {
     /**
      * TODO 1
      * <p>
-     * Create a sequence emitting items 1, 2 and then complete. Use {@link Flux#create(Consumer)}
+     * Create a sequence emitting items 1, 2 and then complete. Use the {@link Flux#create(Consumer)}
      */
     public Flux<Integer> createFlux() {
         return Flux.create(subscriber -> {
@@ -34,10 +34,11 @@ public class Part08AdvancedOperators {
      * <p>
      * Examples:
      * nr = 0 --> empty sequence
-     * nr = 1 --> sequence with 0
+     * nr = 1 --> 0
      * nr = 2 --> 0, 2
      * nr = 6 --> 0, 2, 4, 6, 8, 10
      * nr = 8 --> 0, 2, 4, 6, 8, 10, 12, 14
+     * ...
      */
     public Flux<Integer> generateFlux(int nr) {
         return Flux.generate(

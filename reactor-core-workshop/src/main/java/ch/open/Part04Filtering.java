@@ -13,7 +13,7 @@ public class Part04Filtering {
     /**
      * TODO 1
      * <p>
-     * Return only the even numbers emitted from the given Publisher
+     * Return only the even numbers emitted by the given publisher
      */
     Flux<Integer> filterEven(Flux<Integer> flux) {
         return flux.filter(i -> i % 2 == 0).log(); // TO BE REMOVED
@@ -22,7 +22,7 @@ public class Part04Filtering {
     /**
      * TODO 2
      * <p>
-     * Ignore the duplicates form the given Publisher
+     * Ignore the duplicates emitted by the given publisher
      */
     Flux<Integer> ignoreDuplicates(Flux<Integer> flux) {
         return flux.distinct().log(); // TO BE REMOVED

@@ -107,7 +107,7 @@ public class Part09FlatMapOperator {
      * ColorCount(color=green, count=3)
      * ...
      * <p>
-     * Look into {@link Flux#groupBy(Function)}, {@link Flux#count()} and {@link Flux#map(Function)} operators
+     * Look into {@link Flux#groupBy(Function)}, {@link Flux#count()} and {@link Flux#flatMap(Function)} operators
      */
     Flux<ColorCount> fluxOfFluxes(Flux<String> colors) {
         return colors.groupBy(color -> color)
