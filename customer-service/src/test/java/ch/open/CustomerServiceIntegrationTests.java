@@ -10,8 +10,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-// Needs a running Redis instance
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class CustomerServiceIntegrationTests {
