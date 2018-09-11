@@ -1,12 +1,15 @@
-Demonstrating:
+### Customer Service application
 
-- Reactive Redis
-- Reactive Spring Security
+This application demonstrates the followings:
+
+- Reactive Redis support
+- Reactive Spring Security support
 - Reactive Thymeleaf Support
-- Spring WebFlux (HandlerFunction and RouterFunction)
-- Testing with WebClient
+- Spring WebFlux Functional (HandlerFunction and RouterFunction)
+- Integration Testing with WebClient
+- Testing using @WebFluxTest
 
-Start Redis via:
+1. Start Redis via:
 
 ```bash
 docker run -d --name redis -p 6379:6379 redis:4
@@ -18,36 +21,19 @@ Status: Downloaded newer image for redis:4
 4bd76953ea24a30eaa87e8a438a1330126974eaff115d2722a728c68403a07be
 ```
 
-```bash
-docker ps -a
-
-CONTAINER ID  IMAGE    COMMAND                 CREATED             STATUS              PORTS                   NAMES
-4bd76953ea24  redis:4  "docker-entrypoint.s…"  About a minute ago  Up About a minute   0.0.0.0:6379->6379/tcp  elated_ptolemy
-```
-
-Connect to it and get a shell via `docker exec -it <container-id> /bin/bash`
+2. Make sure you can connect to it in order to view the keys:
 
 ```bash
-
-docker exec -it 4bd76953ea24 /bin/bash
-root@4bd76953ea24:/data#
-```
-
-Connect to redis via `redis-cli`
-
-```bash
-root@4bd76953ea24:/data# redis-cli
-127.0.0.1:6379>
-```
-
-Check that there are no keys currently
-
-```bash
+docker exec -it redis /bin/bash
+root@9676a1e76763:/data# redis-cli
 127.0.0.1:6379> keys *
 (empty list or set)
 ```
 
-Start the application and check that some customers were inserted into the `customers` hash
+3. Start the application using IntelliJ or via `java -jar ...`
+
+
+4. After the application has started successfully inspect redis that customers has been inserted. 
 
 ```bash
 127.0.0.1:6379> keys *
@@ -69,9 +55,31 @@ Start the application and check that some customers were inserted into the `cust
 14) "{\"id\":\"3ee9c55e-8254-4c3a-b1fd-4cf0cb11104a\",\"firstName\":\"Saul\",\"lastName\":\"Goodman\"}"```
 ```
 
-Access the `localhost:8080/` in your browser.
-Notice that that you are redirected to a login screen from spring security.
+The application is using a simple `CommandLineRunner` to insert some sample customers. 
 
-Login with `user:user` and you should get `Access Denied`.
+5. Review the `DataInitializer` which is using the `CustomerRepository` to populate Redis.
+
+6. Review the reactive `CustomerRepository` which is using the `ReactiveRedisOperations` template.
+
+7. The application provides a Thymeleaf view `CustomersViewController` of the customers.
+
+8. The application also provides a REST based view using WebFlux.Fn framework. Review how is done in the 
+`CustomerHandler` and `RouterFunctionConfig`
+
+9. The application is using Spring Security, review the `SecurityConfig`
+
+In a browser try to access `http://localhost:8080`. 
+Notice that that you are redirected to a redesigned login screen from Spring Security 5.
+
+Try to login with `user:user` and you should get `Access Denied`.
 
 Login with `admin:admin` and you should see the Customers View (use another browser or in incognito mode)
+
+10. Testing
+
+The `CustomerServiceTest` is using the @WebFluxTest slice testing approach to test only the web layer.
+Notice that this way Redis in not needed.
+
+The `CustomersServiceIntegrationTests` runs a full end-to-end test using an embedded Redis instance.
+
+ 
