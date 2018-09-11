@@ -5,10 +5,10 @@ The application is composed of the following 3 services:
 - `temperature-service`
 - `temperature-dashboard`
 
-The `iot-cloud-simulator` is emitting sensor data about lake temperatures and sends measurement data via HTTP POST 
+The `iot-cloud-simulator` is emitting sensor data about lake temperatures and sends this data via HTTP POST 
 to `temperature-service` for further processing. The `temperature-serice` application stores the measurements in a 
 MongoDB capped collection and makes it available via a REST endpoint for the `temperature-dashboard` UI application.
-The `temperature-dashboard` presents the measurements on a graph receiving the measurements data via Server-Sent Events.
+The `temperature-dashboard` receives the measurements via Server-Sent Events and presents it on a graph.
 
 Setup the application:
 
@@ -20,7 +20,7 @@ docker run -d --name mongo -p 27017:27017 mongo:4.1
 
 2. Make sure you can connect to MongoDB
 
-Then connect via 
+Then connect via:
  
 ```bash
 docker exec -it mongo /bin/bash
@@ -31,8 +31,16 @@ root@2ba2ac1fccbb:/# mongo
 3. Start the `temperature-service`, `iot-cloud-simulator` and `temperature-dashboard` applications. If you imported the
 project into IntelliJ use the `Run Dashboard` view or you can start via command line using `java -jar ...` 
 
+4. Verify that the MongoDB measurements collection is created and is currently empty:
 
-4. The `iot-cloud-simulator` is not emitting the measurements after starting, we need to trigger the emission process via: 
+```
+root@2ba2ac1fccbb:/# mongo
+> show collections
+measurement
+> db.measurement.count();
+```
+
+5. The `iot-cloud-simulator` is not emitting the measurements after starting, we need to trigger the emission process via: 
 
 ```bash
 http post :8082/start
@@ -55,8 +63,8 @@ Flux.
 ...
 ```
 
-5. This measurement data is streamed into `temperature-services`. Check how is done using `Flux<Measurement>` as `@RequestBody`
-Checking the logs you will see the `ingest` stream
+6. This measurement data is streamed into `temperature-services`. Check how is done using `Flux<Measurement>` as `@RequestBody`
+Checking the logs of `temperature-service` you will see the `ingest` stream
 
 ```
 2018-09-11 09:21:16.211  INFO 78860 --- [     parallel-3] ingest  : | request(unbounded)
@@ -77,7 +85,7 @@ Checking the logs you will see the `ingest` stream
 ...
 ```
 
-7. Inspect the Streaming from the `temperature-service`
+7. Inspect the streaming from the `temperature-service`
 
 ```bash
 http -S :8081/measurements "Accept: application/stream+json" -a user:password
@@ -86,8 +94,6 @@ or
 ```bash
 curl -i http://localhost:8081/measurements -H "Accept: application/stream+json" -u user:password
 ```
-
-Notice, if you omit or send `application/json` as accept header that you will get back a JSON array list.
 
 Notice, that with this request you subscribed to the stream, check the logs of the `temperature-service`
 
@@ -104,6 +110,10 @@ If you cancel the the request you will see also that the subscription is cancell
 2018-09-11 09:40:52.174  INFO 80029 --- [ctor-http-nio-3] egress-1                                 : cancel()
 ```
 
+Notice, when getting the measurements if you omit or send `application/json` as accept header that you will get 
+back a JSON array list and not a streamed response.
+
+
 8. Access the UI on `http://localhost:8080` in a browser. As you will see the the measurements are presented using a graph. 
 The UI is getting data via Server-Sent Event from the following endpoint. Check the data received in the Developer Console or 
 you can also access it via command line: 
@@ -115,6 +125,9 @@ or
 ```bash
 curl -i http://localhost:8080/measurements/feed -H "Accept: text/event-stream"
 ```
+
+Check the logs of the `temperature-dashboard` and `temperature-service`. Notice that for each `feed-*` stream there is 
+`egress-*` stream.  
 
 9. The `temperature-dashboard` has another endpoint `http://localhost:8080/reactive-template` which is using different 
 approach. It is using the `IReactiveDataDriverContextVariable` which is a wrapper that avoids Spring WebFlux to resolve 
