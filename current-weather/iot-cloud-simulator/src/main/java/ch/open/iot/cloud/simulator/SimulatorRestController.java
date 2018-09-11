@@ -1,5 +1,6 @@
 package ch.open.iot.cloud.simulator;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 
 @RestController
+@Slf4j
 public class SimulatorRestController {
 
     private Mono<Void> simulator;
@@ -32,13 +34,21 @@ public class SimulatorRestController {
     }
 
     @PostMapping("/start")
-    public void start() {
-        task = simulator.subscribe();
+    public String start() {
+        if (task == null || task.isDisposed()) {
+            task = simulator.subscribe();
+            return "Started";
+        }
+        return "Ignored";
     }
 
     @PostMapping("/stop")
-    public void stop() {
-        task.dispose();
+    public String stop() {
+        if (task != null) {
+            task.dispose();
+            return "Cancelled";
+        }
+        return "Ignored";
     }
 
 

@@ -17,17 +17,20 @@ public class MeasurementHandler {
 
     private final MeasurementRepository repository;
 
+    private long count;
+
     public MeasurementHandler(MeasurementRepository repository) {
         this.repository = repository;
     }
 
     public Mono<ServerResponse> getMeasurementsAsStream(ServerRequest request) {
+        count++;
         log.info("get measurements as stream");
         return ok()
                 .contentType(APPLICATION_STREAM_JSON)
                 .body(repository
                         .findAllByTimeGreaterThan(LocalDateTime.now())
-                        .log("egress-stream"), Measurement.class);
+                        .log("egress-"+count), Measurement.class);
     }
 
     public Mono<ServerResponse> getMeasurements(ServerRequest request) {
