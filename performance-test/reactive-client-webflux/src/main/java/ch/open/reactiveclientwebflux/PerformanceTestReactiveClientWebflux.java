@@ -19,7 +19,6 @@ public class PerformanceTestReactiveClientWebflux {
 
     @GetMapping("/")
     public Mono<String> reactiveEndpoint() {
-        return webClient.get().uri("http://localhost:9090").exchange()
-                .flatMap(clientResponse -> clientResponse.bodyToMono(String.class));
+        return webClient.get().uri("http://localhost:9090").retrieve().bodyToMono(String.class).log();
     }
 }
