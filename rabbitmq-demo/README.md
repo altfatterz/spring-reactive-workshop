@@ -1,4 +1,11 @@
-### RabbitMQ Examples
+### RabbitMQ Demo
+
+The application shows the `async` and the `reactive` way to connect to RabbitMQ via the following modules:
+
+- `async-consumer`
+- `async-producer`
+- `reactive-consumer`
+- `reactive-producer`
 
 1. Start RabbitMQ using Docker
 
@@ -8,7 +15,7 @@ docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 
 2. Verify that you can login to the management console:
 
-http://hocalhost:15672
+http://localhost:15672
 Credentials: guest/guest
 
 3. Start the `reactive-consumer` application
@@ -26,7 +33,7 @@ Verify that the `reactive` queue has been created
 2018-09-10 08:21:24.143  INFO 41434 --- [   rabbitmq-nio] c.o.r.ReactiveProducerApplication        : Message Message_5 sent successfully
 ```
 
-6. Verify the `reactive-consumer` logs:
+6. View the `reactive-consumer` logs:
 
 ```bash
 2018-09-10 08:21:19.154  INFO 41368 --- [pool-1-thread-4] c.o.r.ReactiveConsumerApplication        : Received message Message_0
