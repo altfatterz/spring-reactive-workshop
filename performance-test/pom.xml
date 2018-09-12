@@ -16,6 +16,7 @@
         <module>slow-service</module>
         <module>synchronous-client</module>
         <module>reactive-client</module>
+        <module>reactive-webflux</module>
         <module>load-generator</module>
     </modules>
 
