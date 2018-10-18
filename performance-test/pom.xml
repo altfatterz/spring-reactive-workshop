@@ -13,11 +13,11 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>load-generator</module>
+        <module>reactive-client</module>
+        <module>reactive-client-webflux</module>
         <module>slow-service</module>
         <module>synchronous-client</module>
-        <module>reactive-client</module>
-        <module>reactive-webflux</module>
-        <module>load-generator</module>
     </modules>
 
 </project>
