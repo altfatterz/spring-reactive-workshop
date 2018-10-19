@@ -20,10 +20,15 @@ class CustomerRepository {
         return template.<String, Customer>opsForHash().values("customers");
     }
 
-    public Mono<Void> save(Customer customer) {
-       return Mono.empty();
+    public Mono<Customer> save(Customer customer) {
+        if (customer.getId() == null) {
+            customer.setId(UUID.randomUUID().toString());
+        }
+        return template.<String, Customer>opsForHash()
+                .put("customers", customer.getId(), customer)
+                .log()
+                .map(c -> customer);
     }
-
 
 
     public Mono<Boolean> deleteAll() {

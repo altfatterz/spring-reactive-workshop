@@ -7,6 +7,12 @@ import reactor.core.publisher.Mono;
 @RestController
 public class CustomerController {
 
+    private final CustomerRepository customerRepository;
+
+    public CustomerController(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
     @GetMapping("/customers/{id}")
     public Mono<Customer> getCustomer(@PathVariable Long id) {
         return customerRepository.findById(id);
@@ -18,14 +24,7 @@ public class CustomerController {
     }
 
     @PostMapping("/customers")
-    public Mono<Void> addCustomer(@RequestBody Customer customer) {
+    public Mono<Customer> addCustomer(@RequestBody Customer customer) {
         return customerRepository.save(customer);
-    }
-
-    final CustomerRepository customerRepository;
-
-    public CustomerController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-
     }
 }
