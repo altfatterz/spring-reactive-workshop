@@ -43,7 +43,6 @@ public class DemoConfiguration {
                 .build();
 
         return html.and(json).filter(this::security);
-
     }
 
     public Mono<ServerResponse> security(ServerRequest request, HandlerFunction<ServerResponse> next) {
