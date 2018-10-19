@@ -1,6 +1,8 @@
 package ch.open;
 
 
+import ch.open.customer.Customer;
+import ch.open.customer.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

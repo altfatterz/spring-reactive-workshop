@@ -1,4 +1,4 @@
-package ch.open;
+package ch.open.customer;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 @Component
-class CustomerHandler {
+public class CustomerHandler {
 
     private final CustomerRepository customerRepository;
 

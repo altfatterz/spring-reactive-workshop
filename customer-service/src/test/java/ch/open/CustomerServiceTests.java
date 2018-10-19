@@ -1,6 +1,10 @@
 package ch.open;
 
 
+import ch.open.config.RouterFunctionConfig;
+import ch.open.customer.Customer;
+import ch.open.customer.CustomerHandler;
+import ch.open.customer.CustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

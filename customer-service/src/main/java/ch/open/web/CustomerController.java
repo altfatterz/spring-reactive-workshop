@@ -1,5 +1,7 @@
-package ch.open;
+package ch.open.web;
 
+import ch.open.customer.Customer;
+import ch.open.customer.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

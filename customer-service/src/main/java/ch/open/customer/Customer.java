@@ -1,4 +1,4 @@
-package ch.open;
+package ch.open.customer;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 
 @Data
 @NoArgsConstructor
-class Customer {
+public class Customer {
 
     @Id
     private String id;

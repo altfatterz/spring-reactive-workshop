@@ -1,4 +1,4 @@
-package ch.open;
+package ch.open.customer;
 
 import org.springframework.data.redis.core.ReactiveRedisOperations;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Component
-class CustomerRepository {
+public class CustomerRepository {
 
     private final ReactiveRedisOperations<String, Customer> template;
 

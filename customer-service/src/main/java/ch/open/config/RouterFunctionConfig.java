@@ -1,5 +1,6 @@
-package ch.open;
+package ch.open.config;
 
+import ch.open.customer.CustomerHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
