@@ -5,7 +5,7 @@ This application demonstrates the followings:
 - Reactive Redis support
 - Reactive Spring Security support
 - Reactive Thymeleaf Support
-- Spring WebFlux Functional (HandlerFunction and RouterFunction)
+- Spring WebFlux Functional (`HandlerFunction` and `RouterFunction`)
 - Integration Testing with WebClient
 - Testing using @WebFluxTest
 
@@ -30,10 +30,14 @@ root@9676a1e76763:/data# redis-cli
 (empty list or set)
 ```
 
-3. Start the application using IntelliJ or via `java -jar ...`
+3. Start the application (`CustomerServiceApplication`) using IntelliJ or Eclipse or via command line 
 
+```bash
+mvn clean package
+java -jar target/customer-service*.jar
+```
 
-4. After the application has started successfully inspect redis that customers has been inserted. 
+4. After the application has started successfully inspect redis that customers have been inserted. 
 
 ```bash
 127.0.0.1:6379> keys *
@@ -63,7 +67,7 @@ The application is using a simple `CommandLineRunner` to insert some sample cust
 
 7. The application provides a Thymeleaf view `CustomersViewController` of the customers.
 
-8. The application also provides a REST based view using WebFlux.Fn framework. Review how is done in the 
+8. The application also provides a REST based view using `WebFlux.Fn` framework. Review how is done in the 
 `CustomerHandler` and `RouterFunctionConfig`
 
 9. The application is using Spring Security, review the `SecurityConfig`
