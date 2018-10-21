@@ -72,7 +72,8 @@
             <dependency>
                 <groupId>io.projectreactor</groupId>
                 <artifactId>reactor-bom</artifactId>
-                <version>Bismuth-SR10</version>
+                <version>Californium-SR1</version>
+                <!--<version>Bismuth-SR10</version>-->
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
