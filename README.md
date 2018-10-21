@@ -27,6 +27,7 @@ Expected result:
 [INFO] reactive-producer 0.0.1-SNAPSHOT ................... SUCCESS [  2.919 s]
 [INFO] reactive-consumer 0.0.1-SNAPSHOT ................... SUCCESS [  2.833 s]
 [INFO] rabbitmq-demo ...................................... SUCCESS [  0.010 s]
+[INFO] spring-webflux-functional-demo 0.0.1-SNAPSHOT ...... SUCCESS [  2.112 s]
 [INFO] reactor-core-workshop-solution ..................... SUCCESS [ 15.088 s]
 [INFO] reactor-core-workshop .............................. FAILURE [  2.057 s]
 [INFO] spring-reactive-workshop 1.0-SNAPSHOT .............. SKIPPED
