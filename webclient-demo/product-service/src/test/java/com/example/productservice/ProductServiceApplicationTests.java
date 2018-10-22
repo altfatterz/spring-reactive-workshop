@@ -55,18 +55,17 @@ public class ProductServiceApplicationTests {
 
     @Test
     public void getProductEvents() {
-        Flux<Map<String, ?>> body = this.client.get().uri("/product/events")
+        Flux<Map<String, ?>> body = this.client.get().uri("/events")
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType("text/event-stream;charset=UTF-8")
                 .returnResult(MAP_TYPE)
                 .getResponseBody()
-                .take(3);
+                .take(2);
 
         StepVerifier.create(body)
-                .consumeNextWith(map -> assertEquals("good", map.get("review")))
-                .consumeNextWith(map -> assertEquals("could be better", map.get("review")))
-                .consumeNextWith(map -> assertEquals("very bad", map.get("review")))
+                .consumeNextWith(map -> assertEquals("LEGO city", map.get("name")))
+                .consumeNextWith(map -> assertEquals("L.O.L. Surprise", map.get("name")))
                 .verifyComplete();
     }
 

@@ -37,10 +37,10 @@ public class ProductServiceApplication {
                     List<Map<String, Object>> body = new ArrayList<>(PRODUCTS.values());
                     return ServerResponse.ok().syncBody(body);
                 })
-                .GET("/product/events", request -> {
+                .GET("/events", request -> {
                     Flux<ServerSentEvent<Map<String, Object>>> stream =
                             Flux.interval(Duration.ofSeconds(2))
-                                    .map(i -> REVIEWS.get((i % 5) + 1))
+                                    .map(i -> PRODUCTS.get((i % 5) + 1))
                                     .map(data -> ServerSentEvent.builder(data).build());
                     return ServerResponse.ok().body(fromServerSentEvents(stream));
                 })

@@ -1,16 +1,12 @@
 package com.example.productclient;
 
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
-import java.time.Duration;
 import java.time.Instant;
 
+import static com.example.productclient.LogUtil.logTime;
 
-@Slf4j
 public class Client1 {
 
     private static RestTemplate restTemplate = new RestTemplate();
@@ -31,8 +27,4 @@ public class Client1 {
         logTime(start);
     }
 
-
-    private static void logTime(Instant start) {
-        log.debug("Elapsed time: " + Duration.between(start, Instant.now()).toMillis() + "ms");
-    }
 }

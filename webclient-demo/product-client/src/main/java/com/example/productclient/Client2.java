@@ -1,14 +1,11 @@
 package com.example.productclient;
 
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.time.Duration;
 import java.time.Instant;
 
-@Slf4j
+import static com.example.productclient.LogUtil.logTime;
+
 public class Client2 {
 
     private static WebClient client = WebClient.create("http://localhost:8081?delay=2");
@@ -22,10 +19,6 @@ public class Client2 {
         }
 
         logTime(start);
-    }
-
-    private static void logTime(Instant start) {
-        log.debug("Elapsed time: " + Duration.between(start, Instant.now()).toMillis() + "ms");
     }
 
 }
