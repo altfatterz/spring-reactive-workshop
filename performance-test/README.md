@@ -8,14 +8,12 @@ The application is composed of the followings:
 - `reactive-client-webflux` - running in netty, calls `slow-serivce` using `WebClient`
 - `load-generator` - creates load on the `synchronous-client`, `reactive-client` and `reactive-client-webflux` 
 
-Build the project with `mvn clean package`
-
 1. Start up `slow-service` (port: 9090)
 2. Start up `synchronous-client` (port: 9091) uses max 8 threads
 3. Start up `reactive-client` (port: 9092) uses max 8 threads
 4. Start up `reactive-client-webflux` (port: 9093) uses 8 threads (Schedulers#parallel())
 
-4. Start `load-generator` with 10 concurrent clients for the `sychronous-client`:
+5. Start `load-generator` with 10 concurrent clients for the `sychronous-client`:
 
 ```
 java -jar target/load-generator.jar 10 9091
@@ -27,7 +25,7 @@ ms     %     Task name
 10196  100%  concurrent access: 10
 ```
 
-5. Start `load-generator` with 20 concurrent clients for the `synchronous-client`:
+6. Start `load-generator` with 20 concurrent clients for the `synchronous-client`:
 
 ```
 java -jar target/load-generator.jar 20 9091
@@ -39,7 +37,7 @@ ms     %     Task name
 15262  100%  concurrent access: 20
 ```
 
-6. Start `load-generator` with 20 concurrent clients for the `reactive-client`:
+7. Start `load-generator` with 20 concurrent clients for the `reactive-client`:
 
 ```
 java -jar target/load-generator.jar 20 9092
@@ -51,7 +49,7 @@ ms     %     Task name
 05215  100%  concurrent access: 20
 ```
 
-7. Start `load-generator` with 100 concurrent clients for the `reactive-client-webflux`:
+8. Start `load-generator` with 100 concurrent clients for the `reactive-client-webflux`:
 
 ```
 java -jar target/load-generator.jar 20 9093
@@ -65,4 +63,4 @@ ms     %     Task name
 
 Try for 100 clients as well for `reactive-client` and `reactive-client-webflux`
 
-8. Inspect the load using `jvisualvm`
+9. Inspect the load using `jvisualvm`
