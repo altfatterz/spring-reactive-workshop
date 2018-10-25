@@ -1,5 +1,27 @@
 #### Spring WebFlux Functional Endpoint Demo
 
+The application is using [Embedded MongoDB](https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo)
+
+After starting the application access the following endpoints:
+
+Rendering HTML:
+
+```bash
+http: 8080/customers
+http: 8080/customers/<id>
+```
+
+Rendering JSON:
+
+```bash
+http: 8080/customers 'accept:application/json'
+http: 8080/customers/<id> 'accept:application/json'
+```
+
+Via a `HandlerFilterFunction` demonstrates how to include authorization. 
+In this example we use a randomizer for demonstrating the `HandlerFilterFunction`, so if you get `403 Forbidden` just send the request again.
+ 
+
 Demonstrates:
 
 1. `RouterFunction`
