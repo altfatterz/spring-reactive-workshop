@@ -74,7 +74,7 @@ public class Part03StepVerifier {
     /**
      * TODO 5
      * <p>
-     * Use the {@link StepVerifier} to check that the numbers parameter emits 10 items and completes successfully.
+     * Use the {@link StepVerifier} to check that the numbers parameter emits 5 items and completes successfully.
      * Notice how long the test takes.
      */
     public void expect5Items(Flux<Long> numbers) {
