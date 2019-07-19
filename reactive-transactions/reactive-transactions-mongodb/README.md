@@ -54,22 +54,48 @@ We included an error scenario when sending an empty `names` query parameter valu
 using [httpie](https://httpie.org/)
 
 ```bash
-http post :8080/v1/customers\?names=John\&names=\&names=Billy
+$ http post :8080/v1/customers\?names=John\&names=\&names=Billy
 ```
 
 or curl
 
 ```bash
-curl -X POST http://localhost:8080/v1/customers\?names=John\&names=\&names=Billy
+$ curl -X POST http://localhost:8080/v1/customers\?names=John\&names=\&names=Billy
 ```
 
 Check the database:
 
 ```bash
-$ http post :8080/v3/customers\?names=John\&names=Jane
+$ docker container exec -it reactive-tx-mongo bash
 root@c85a0a2c8c88:/# mongo
 tx-replica-set:PRIMARY> db.customers.count()
 0
+```
+
+Execute the happy flow without empty `names` value
+
+```bash
+$ http post :8080/v1/customers\?names=John\&names=Billy
+[
+    {
+        "id": "5d31d8ead250485211e52a0f",
+        "name": "John"
+    },
+    {
+        "id": "5d31d8ead250485211e52a10",
+        "name": "Billy"
+    }
+]
+```
+
+Check the database:
+
+```bash
+$ docker container exec -it reactive-tx-mongo bash
+root@c85a0a2c8c88:/# mongo
+tx-replica-set:PRIMARY> db.customers.find()
+{ "_id" : ObjectId("5d31d8ead250485211e52a0f"), "name" : "John", "_class" : "com.example.Customer" }
+{ "_id" : ObjectId("5d31d8ead250485211e52a10"), "name" : "Billy", "_class" : "com.example.Customer" }
 ```
 
 Check also for the other endpoints `/v2/customers`, `/v3/customers`, and `/v4/customers`
