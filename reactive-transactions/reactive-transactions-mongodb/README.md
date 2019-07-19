@@ -1,4 +1,18 @@
-In order to run the tests and the application we need a MongoDB node with a replica set.
+### Build the project:
+
+```
+$ mvn clean install
+```
+
+The tests are using [testcontainers](https://www.testcontainers.org/) which is creating for us a single node MongoDB replica set for the time of running the tests.
+
+With `watch docker ps -a` command in another terminal you can view the created docker containers.
+
+Review the `CustomerServiceTest` for the details how it is set up. 
+
+### Run the application
+
+In order to run the application we need a MongoDB node with a replica set.
 This is because the MongoDB transaction support needs a replica set, otherwise we get MongoClientException: `Sessions are not supported by the MongoDB cluster to which this client is connected`
 
 1. Start MongoDB Node
@@ -37,17 +51,9 @@ tx-replica-set:PRIMARY>
 
 You should get the `tx-replica-set:PRIMARY` prompt. 
 
-6. Review and remove the `@Ignore` tests in the `CustomerServiceTest` and build the project
+6. Start the application from IntelliJ or from command line.
 
-TODO: improve the tests to use: https://www.testcontainers.org/
-
-```bash
-$ mvn clean package
-```
-
-7. Start the application from IntelliJ or from command line.
-
-8. Review the `/v*/customers` endpoints which are calling different `saveAllv*` service methods showing the different ways to handle transactions.  
+7. Review the `/v*/customers` endpoints which are calling different `saveAllv*` service methods showing the different ways to handle transactions.  
 
 We included an error scenario when sending an empty `names` query parameter value. Verify that in this case the transaction is rolled back and there are no records in the database
 
@@ -102,7 +108,7 @@ Check also for the other endpoints `/v2/customers`, `/v3/customers`, and `/v4/cu
 
 Notice that in `/v4/customers` we don't use a transaction. What is expected in this case?
 
-9. Cleanup MongoDB
+8. Cleanup MongoDB
 
 ```bash
 $ docker container exec -it reactive-tx-mongo bash

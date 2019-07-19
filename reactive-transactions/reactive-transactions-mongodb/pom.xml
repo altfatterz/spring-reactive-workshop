@@ -41,7 +41,15 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- transactions are not supported -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>1.11.3</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- flapdoodle we cannot use since transactions are not supported -->
         <!-- MongoClientException: Sessions are not supported by the MongoDB cluster to which this client is connected -->
 <!--        <dependency>-->
 <!--            <groupId>de.flapdoodle.embed</groupId>-->
