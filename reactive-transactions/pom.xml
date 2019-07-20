@@ -11,6 +11,7 @@
     <modules>
         <module>reactive-transactions-mongodb</module>
         <module>reactive-transactions-postgresql</module>
+        <module>reactive-transactions-h2</module>
     </modules>
 
 </project>

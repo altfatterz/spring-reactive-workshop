@@ -1,0 +1,21 @@
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+spring:
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb
+  h2:
+    console:
+      enabled: true
+
+
+logging:
+  level:
+    org.springframework: debug
+

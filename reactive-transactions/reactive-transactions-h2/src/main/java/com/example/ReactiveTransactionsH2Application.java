@@ -1,49 +1,30 @@
 package com.example;
 
-import io.r2dbc.spi.ConnectionFactories;
-import io.r2dbc.spi.ConnectionFactory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.r2dbc.connectionfactory.R2dbcTransactionManager;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.reactive.TransactionalOperator;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 @SpringBootApplication
 @EnableTransactionManagement
-public class ReactiveTransactionsPostgresqlApplication {
+public class ReactiveTransactionsH2Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(ReactiveTransactionsPostgresqlApplication.class, args);
-    }
-
-    @Bean
-    ConnectionFactory postgresConnectionFactory(@Value("${spring.r2dbc.url}") String url) {
-        return ConnectionFactories.get(url);
-    }
-
-    @Bean
-    ReactiveTransactionManager transactionManager(ConnectionFactory cf) {
-        return new R2dbcTransactionManager(cf);
+        SpringApplication.run(ReactiveTransactionsH2Application.class, args);
     }
 
 }
@@ -53,6 +34,11 @@ public class ReactiveTransactionsPostgresqlApplication {
 class CustomerRestController {
 
     private final CustomerService customerService;
+
+    @GetMapping("/customers")
+    public Flux<Customer> findAll() {
+        return customerService.findAll();
+    }
 
     @PostMapping("/v1/customers")
     public Flux<Customer> create1(@RequestParam String[] names) {
@@ -131,6 +117,10 @@ class CustomerService {
 
         return customers;
 
+    }
+
+    public Flux<Customer> findAll() {
+        return customerRepository.findAll();
     }
 }
 

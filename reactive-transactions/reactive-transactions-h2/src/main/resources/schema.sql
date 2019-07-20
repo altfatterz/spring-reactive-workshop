@@ -1,0 +1,1 @@
+create table customers (id INTEGER IDENTITY PRIMARY KEY, name VARCHAR);
