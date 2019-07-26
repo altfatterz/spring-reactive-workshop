@@ -21,6 +21,9 @@ public class OrderRestController {
 
     private OrderRepository orderRepository;
 
+    // Spring Boot creates and pre-configures a WebClient.Builder for you, see WebClientAutoConfiguration
+    // each injection point creates a newly cloned instance of the builder.
+
     public OrderRestController(WebClient.Builder builder, OrderRepository orderRepository) {
         this.webClient = builder.baseUrl("http://localhost:8081").build();
         this.orderRepository = orderRepository;

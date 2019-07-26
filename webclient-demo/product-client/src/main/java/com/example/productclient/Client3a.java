@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import static com.example.productclient.LogUtil.logTime;
 
-public class Client3 {
+public class Client3a {
 
     private static WebClient client = WebClient.create("http://localhost:8081?delay=2");
 
@@ -23,10 +23,12 @@ public class Client3 {
                 .collect(Collectors.toList());
 
         // with `when()` we aggregate given publishers into a new Mono that will fulfilled when all of the given Publishers have completed.
-        Mono.when(products);
+        Mono<Void> mono = Mono.when(products);
 
-        // why it still returns around 100 ms ?
+        // with `mono()` we subscribe to this Mono and block indefinitely until a next signal is received
+        mono.block();
+
+        // can you explain the logging output?
         logTime(start);
     }
-
 }
