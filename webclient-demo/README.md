@@ -3,7 +3,10 @@
 The `webclient-demo` demonstrates using the `WebClient` which is a reactive, non-blocking which can be used to call REST services.
 Compared to `RestTemplate` has a fluent functional API with declarative composition.
 
-Internally `WebClient` delegates to a HTTP client library. By default is using [Reactor Netty](https://github.com/reactor/reactor-netty)
+Internally `WebClient` delegates to a HTTP client library via the `ClientHttpConnector` abstraction. 
+By default is using [Reactor Netty](https://github.com/reactor/reactor-netty) but there is also support for [Jetty Reactive HTTP client library](https://github.com/jetty-project/jetty-reactive-httpclient) 
+
+
 
 The examples is composed of following modules:
 

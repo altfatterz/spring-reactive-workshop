@@ -28,6 +28,7 @@ public class OrderRestController {
     // each injection point creates a newly cloned instance of the builder.
 
     public OrderRestController(WebClient.Builder builder, OrderRepository orderRepository) {
+        // WebClient.Builder instances are stateful, any change on the builder is reflected in all clients subsequently created with it.
         this.webClient = builder.baseUrl("http://localhost:8081").build();
         this.orderRepository = orderRepository;
     }
