@@ -12,13 +12,7 @@ This application demonstrates the followings:
 1. Start Redis via:
 
 ```bash
-docker run -d --name redis -p 6379:6379 redis:4
-
-Unable to find image 'redis:4' locally
-4: Pulling from library/redis
-Digest: sha256:b77926b30ca2f126431e4c2055efcf2891ebd4b4c4a86a53cf85ec3d4c98a4c9
-Status: Downloaded newer image for redis:4
-4bd76953ea24a30eaa87e8a438a1330126974eaff115d2722a728c68403a07be
+docker container run --rm -d --name redis -p 6379:6379 redis:5.0.5
 ```
 
 2. Make sure you can connect to it in order to view the keys:
@@ -77,7 +71,16 @@ Notice that that you are redirected to a redesigned login screen from Spring Sec
 
 Try to login with `user:user` and you should get `Access Denied`.
 
-Login with `admin:admin` and you should see the Customers View (use another browser or in incognito mode)
+Login with `admin:admin` and you should see the Customers View (use another browser or in incognito mode or just restart the application)
+
+Endpoints available:
+
+```bash
+http :8080/customers -a admin:admin
+http :8080/customers/{customerId} -a admin:admin
+echo '{"firstName":"John", "lastName":"Doe"}' |  http post :8080/customers -a admin:admin
+```
+
 
 10. Testing
 

@@ -27,6 +27,7 @@ class SecurityConfig {
     @Bean
     SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeExchange()
                     .pathMatchers("/customers").hasRole("ADMIN")
                     .pathMatchers("/customers-view").access(this::isAdmin)

@@ -35,7 +35,7 @@ public class CustomerRepository {
         return template.<String, Customer>opsForHash().delete("customers");
     }
 
-    public Mono<Customer> findById(Long id) {
-        return Mono.empty();
+    public Mono<Customer> findById(String id) {
+        return template.<String, Customer>opsForHash().get("customers", id);
     }
 }
