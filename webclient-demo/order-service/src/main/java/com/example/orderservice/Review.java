@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class Review {
 
-    private Long productId;
-    private String review;
+    private String value;
 
 }

@@ -11,6 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.springframework.web.reactive.function.BodyInserters.fromServerSentEvents;
@@ -23,7 +24,7 @@ public class ProductServiceApplication {
     }
 
     private static final Map<Long, Map<String, Object>> PRODUCTS = new HashMap<>();
-    private static final Map<Long, Map<String, Object>> REVIEWS = new HashMap<>();
+    private static final Map<Long, List<Review>> REVIEWS = new HashMap<>();
 
     @Bean
     public RouterFunction<?> routes() {
@@ -46,8 +47,8 @@ public class ProductServiceApplication {
                 })
                 .GET("/products/{id}/reviews", request -> {
                     Long id = Long.parseLong(request.pathVariable("id"));
-                    Map<String, Object> body = REVIEWS.get(id);
-                    return body != null ? ServerResponse.ok().syncBody(body) :ServerResponse.notFound().build();
+                    List<Review> body = getReviews(id);
+                    return body != null ? ServerResponse.ok().syncBody(body) : ServerResponse.notFound().build();
                 })
                 .filter((request, next) -> {
                     Duration delay = request.queryParam("delay")
@@ -62,15 +63,21 @@ public class ProductServiceApplication {
     static {
         addProduct(1L, "LEGO city");
         addProduct(2L, "L.O.L. Surprise");
-        addProduct( 3L, "Fire TV Stick with Alexa Voice Remote");
-        addProduct( 4L, "Red Dead Redemption 2");
-        addProduct( 5L, "The Wonky Donkey");
+        addProduct(3L, "Fire TV Stick with Alexa Voice Remote");
+        addProduct(4L, "Red Dead Redemption 2");
+        addProduct(5L, "The Wonky Donkey");
 
-        addReviews(1L, "good");
-        addReviews(2L, "could be better");
-        addReviews(3L, "very bad");
-        addReviews(4L, "bad");
-        addReviews(5L, "the best");
+        LocalDateTime.now();
+        addReviews(1L, new Review("good", LocalDateTime.now()));
+        addReviews(1L, new Review("very good", LocalDateTime.now()));
+        addReviews(1L, new Review("could be better", LocalDateTime.now()));
+        addReviews(1L, new Review("bad", LocalDateTime.now()));
+
+        addReviews(2L, new Review("good", LocalDateTime.now()));
+        addReviews(2L, new Review("very good", LocalDateTime.now()));
+        addReviews(2L, new Review("the best", LocalDateTime.now()));
+
+        addReviews(3L, new Review("bad", LocalDateTime.now()));
     }
 
     private static void addProduct(Long id, String name) {
@@ -80,11 +87,34 @@ public class ProductServiceApplication {
         PRODUCTS.put(id, map);
     }
 
-    private static void addReviews(Long productId, String review) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        map.put("productId", productId);
-        map.put("review", review);
-        REVIEWS.put(productId, map);
+    private static void addReviews(Long productId, Review review) {
+        getReviews(productId).add(review);
+    }
+
+    private static List<Review> getReviews(Long productId) {
+        return REVIEWS.computeIfAbsent(productId, key -> new ArrayList<Review>());
+    }
+
+    static class Review {
+
+        String value;
+        LocalDateTime dateTime;
+
+        public Review() {
+        }
+
+        public Review(String value, LocalDateTime dateTime) {
+            this.value = value;
+            this.dateTime = dateTime;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public LocalDateTime getDateTime() {
+            return dateTime;
+        }
     }
 
 }

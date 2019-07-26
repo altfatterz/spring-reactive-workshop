@@ -1,5 +1,6 @@
 package com.example.orderservice;
 
+import org.reactivestreams.Publisher;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 @RestController
 public class OrderRestController {
@@ -58,23 +61,24 @@ public class OrderRestController {
                 .flatMapSequential(order -> {
                     Long productId = order.getProductId();
 
-                    Mono<String> productMono = this.webClient.get().uri("/products/{id}?delay=2", productId)
+                    Mono<Product> product = webClient.get().uri("/products/{id}?delay=2", productId)
                             .retrieve()
-                            .bodyToMono(Product.class)
-                            .map(Product::getName);
+                            .bodyToMono(Product.class);
 
-                    Mono<String> reviewMono = this.webClient.get().uri("/products/{id}/reviews?delay=1", productId)
-                            .retrieve()
-                            .bodyToMono(Review.class)
-                            .map(Review::getReview);
+                    Flux<Review> reviews = product.flatMapMany(p -> webClient.get().uri("/products/{id}?delay=2", productId)
+                            .retrieve().bodyToFlux(Review.class));
 
-                    return Mono.zip(productMono, reviewMono, (productName, review) -> {
-                        Map<String, String> data = new LinkedHashMap<>();
-                        data.put("product", productName);
-                        data.put("review", review);
-                        return data;
+                    // todo
+
+                    return Flux.combineLatest(product, reviews, new BiFunction<Product, Review, Map<String, String>>() {
+                        @Override
+                        public Map<String, String> apply(Product product, Review review) {
+                            return null;
+                        }
                     });
+
                 });
+
     }
 
 }
